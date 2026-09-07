@@ -1,5 +1,11 @@
 # AntiDPI Mobile (GoodByeDPI for Android)
 
+[![Website](https://img.shields.io/badge/Web_Sitesi-Canlıda-10B981?style=for-the-badge&logo=google-chrome&logoColor=white)](https://resmierenyildirim-sketch.github.io/antidpi-mobile/)
+[![Download APK](https://img.shields.io/badge/APK_İndir-v1.0.0-06B6D4?style=for-the-badge&logo=android&logoColor=white)](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.0.0/AntiDPI-Mobile.apk)
+[![License](https://img.shields.io/badge/Lisans-MIT-blue?style=for-the-badge)](LICENSE)
+
+> 🌐 **Resmi İndirme & Tanıtım Web Sitesi:** [resmierenyildirim-sketch.github.io/antidpi-mobile](https://resmierenyildirim-sketch.github.io/antidpi-mobile/)
+
 **AntiDPI Mobile**, bilgisayarlardaki GoodbyeDPI / Zapret mantığını mobil cihazlara (Android) taşıyan, uzak bir sunucuya ihtiyaç duymadan doğrudan cihaz üzerinde çalışan bir **DPI (Derin Paket İnceleme) Sansür Atlatıcı** uygulamasıdır.
 
 ---
