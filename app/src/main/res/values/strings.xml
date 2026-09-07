@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AntiDPI Mobile</string>
+    <string name="vpn_channel_name">AntiDPI Koruma Durumu</string>
+    <string name="vpn_channel_desc">AntiDPI servisinin aktif durumunu ve ağ hızını gösterir.</string>
+    <string name="status_protected">KORUMA AKTİF</string>
+    <string name="status_protected_desc">DPI filtreleri atlatılıyor. İnternet hızınız kısıtlanmaz.</string>
+    <string name="status_disconnected">BAĞLANTI KESİLDİ</string>
+    <string name="status_disconnected_desc">Koruma devre dışı. Sansürlü sitelere erişim engellenebilir.</string>
+    <string name="btn_connect">Korumayı Başlat</string>
+    <string name="btn_disconnect">Bağlantıyı Kes</string>
+    <string name="preset_standard">Standart SNI Split</string>
+    <string name="preset_standard_desc">TLS ClientHello paketini 2 parçaya böler. Hızlı ve dengeli.</string>
+    <string name="preset_turk_telekom">Türk Telekom &amp; Superonline</string>
+    <string name="preset_turk_telekom_desc">Agresif SNI parçalama + Disorder (Sırasız paket). Katı DPI için.</string>
+    <string name="preset_turkcell">Turkcell &amp; Vodafone Mobil</string>
+    <string name="preset_turkcell_desc">Sahte paket (Fake TTL) + TLS Header manipülasyonu.</string>
+    <string name="preset_custom">Özel Mod</string>
+    <string name="preset_custom_desc">Gelişmiş kullanıcılar için özel parametreler.</string>
+</resources>
