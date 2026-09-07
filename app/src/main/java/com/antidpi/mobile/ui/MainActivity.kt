@@ -21,10 +21,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.antidpi.mobile.AntiDpiApp
+import com.antidpi.mobile.core.AppUpdater
 import com.antidpi.mobile.core.DpiEngineManager
 import com.antidpi.mobile.core.DpiVpnService
+import com.antidpi.mobile.core.UpdateInfo
+import com.antidpi.mobile.ui.components.UpdateDialog
 import com.antidpi.mobile.ui.screens.*
 import com.antidpi.mobile.ui.theme.*
+import kotlinx.coroutines.launch
 
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
     object Home : Screen("home", "Ana Sayfa", Icons.Default.Shield)
@@ -54,10 +58,53 @@ class MainActivity : ComponentActivity() {
         setContent {
             AntiDpiTheme {
                 val navController = rememberNavController()
+                val coroutineScope = rememberCoroutineScope()
                 val isConnected by DpiEngineManager.isConnected.collectAsState()
                 val stats by DpiEngineManager.stats.collectAsState()
                 val logs by DpiEngineManager.logs.collectAsState()
                 var activeProfile by remember { mutableStateOf(prefs.getActiveProfile()) }
+
+                var updateInfo by remember { mutableStateOf<UpdateInfo?>(null) }
+                var downloadProgress by remember { mutableStateOf<Float?>(null) }
+
+                // Check for updates and remote profiles on launch
+                LaunchedEffect(Unit) {
+                    val info = AppUpdater.checkForUpdate("1.0.0")
+                    if (info != null && info.hasUpdate) {
+                        updateInfo = info
+                    }
+
+                    val (announcement, _) = AppUpdater.fetchRemoteProfiles()
+                    if (!announcement.isNullOrBlank()) {
+                        DpiEngineManager.addLog(announcement)
+                    }
+                }
+
+                // Show In-App Update Dialog if update is found
+                updateInfo?.let { info ->
+                    UpdateDialog(
+                        updateInfo = info,
+                        downloadProgress = downloadProgress,
+                        onDismiss = { updateInfo = null },
+                        onConfirmUpdate = {
+                            coroutineScope.launch {
+                                AppUpdater.downloadAndInstall(
+                                    context = this@MainActivity,
+                                    apkUrl = info.downloadUrl,
+                                    onProgress = { downloadProgress = it },
+                                    onComplete = {
+                                        downloadProgress = null
+                                        updateInfo = null
+                                    },
+                                    onError = { err ->
+                                        downloadProgress = null
+                                        Toast.makeText(this@MainActivity, err, Toast.LENGTH_LONG).show()
+                                    }
+                                )
+                            }
+                        }
+                    )
+                }
 
                 val items = listOf(
                     Screen.Home,
