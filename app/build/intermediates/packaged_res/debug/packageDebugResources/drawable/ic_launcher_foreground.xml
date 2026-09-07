@@ -1,0 +1,24 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="21.6"
+        android:translateY="21.6">
+        <!-- Shield Path -->
+        <path
+            android:fillColor="#06B6D4"
+            android:pathData="M54,12 L20,24 L20,54 C20,76 34,95 54,102 C74,95 88,76 88,54 L88,24 Z"/>
+        <!-- Inner Glow / Shield Inner -->
+        <path
+            android:fillColor="#0F172A"
+            android:pathData="M54,18 L25,28.5 L25,54 C25,72.5 37,88.5 54,95 C71,88.5 83,72.5 83,54 L83,28.5 Z"/>
+        <!-- Bypass Lightning Bolt -->
+        <path
+            android:fillColor="#10B981"
+            android:pathData="M57,32 L39,56 L52,56 L47,76 L69,50 L55,50 Z"/>
+    </group>
+</vector>

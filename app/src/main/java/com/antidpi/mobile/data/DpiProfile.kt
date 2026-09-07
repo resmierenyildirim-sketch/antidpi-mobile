@@ -11,6 +11,36 @@ data class DpiProfile(
     val fakeData: Boolean = false,
     val fakeHost: String = "www.google.com"
 ) {
+    fun toArgs(ip: String = "127.0.0.1", port: Int = 1080): Array<String> {
+        val args = mutableListOf("ciadpi", "--ip", ip, "--port", port.toString(), "--auto=torst")
+        when (id) {
+            "preset_standard" -> {
+                args.addAll(listOf("--split", "2"))
+            }
+            "preset_tt_so" -> {
+                args.addAll(listOf("--split", "1", "--disorder", "1", "--fake", "-1", "--ttl", "4"))
+            }
+            "preset_turkcell_voda" -> {
+                args.addAll(listOf("--split", "2", "--fake", "-1", "--ttl", "5"))
+            }
+            "preset_aggressive" -> {
+                args.addAll(listOf("--split", "1", "--disorder", "3+s", "--fake", "-1", "--ttl", "3", "--mod-http=h,d"))
+            }
+            else -> {
+                if (splitOffset > 0) {
+                    args.addAll(listOf("--split", splitOffset.toString()))
+                }
+                if (disorder) {
+                    args.addAll(listOf("--disorder", "1"))
+                }
+                if (fakeData) {
+                    args.addAll(listOf("--fake", "-1", "--ttl", fakeTtl.toString()))
+                }
+            }
+        }
+        return args.toTypedArray()
+    }
+
     companion object {
         val STANDARD = DpiProfile(
             id = "preset_standard",

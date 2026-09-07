@@ -1,0 +1,7 @@
+# ninja log v5
+14	174	8105077955669030	CMakeFiles/antidpi.dir/ciadpi/conntrack.c.o	6617475c9e5d2831
+30	198	8105077955878519	CMakeFiles/antidpi.dir/jni_bridge.c.o	b58955a76b83130c
+8	222	8105077956106034	CMakeFiles/antidpi.dir/tun2socks/tun2socks.c.o	1f1405c26225d0e3
+1	245	8105077956388952	CMakeFiles/antidpi.dir/ciadpi/desync.c.o	1895a7e0e529f7e5
+22	264	8105077956536474	CMakeFiles/antidpi.dir/ciadpi/proxy.c.o	57891386220728e2
+264	392	8105077957882071	C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/build/intermediates/cxx/Debug/3q4u1c2g/obj/armeabi-v7a/libantidpi.so	d269f7f04e1b5f54

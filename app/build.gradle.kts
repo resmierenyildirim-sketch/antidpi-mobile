@@ -7,6 +7,7 @@ plugins {
 android {
     namespace = "com.antidpi.mobile"
     compileSdk = 34
+    ndkVersion = "25.1.8937393"
 
     defaultConfig {
         applicationId = "com.antidpi.mobile"
@@ -20,12 +21,6 @@ android {
             useSupportLibrary = true
         }
 
-        externalNativeBuild {
-            cmake {
-                cppFlags += "-std=c++17"
-                cFlags += "-std=c11 -Wall -O3"
-            }
-        }
         ndk {
             abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64", "x86")
         }
@@ -44,10 +39,9 @@ android {
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDirs("src/main/jniLibs")
         }
     }
 

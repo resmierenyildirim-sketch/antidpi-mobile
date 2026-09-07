@@ -1,0 +1,52 @@
+com.antidpi.mobile.app-foundation-layout-release-0 C:\Users\ereny\.gradle\caches\transforms-4\05c56a7b57a5d2db005c352bf678591d\transformed\foundation-layout-release\res
+com.antidpi.mobile.app-material-release-1 C:\Users\ereny\.gradle\caches\transforms-4\0b623b920f1798fe8a72de789890ba81\transformed\material-release\res
+com.antidpi.mobile.app-ui-tooling-release-2 C:\Users\ereny\.gradle\caches\transforms-4\19287dbf015a8594106da43981cda143\transformed\ui-tooling-release\res
+com.antidpi.mobile.app-ui-tooling-data-release-3 C:\Users\ereny\.gradle\caches\transforms-4\256f2b4a4103f4c8eb76876fac2d4249\transformed\ui-tooling-data-release\res
+com.antidpi.mobile.app-activity-compose-1.9.1-4 C:\Users\ereny\.gradle\caches\transforms-4\2aa7609d82462c1dfdef0d04217075cb\transformed\activity-compose-1.9.1\res
+com.antidpi.mobile.app-emoji2-1.3.0-5 C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\res
+com.antidpi.mobile.app-navigation-runtime-ktx-2.7.7-6 C:\Users\ereny\.gradle\caches\transforms-4\35f2ae2212717b4aa00908e225735c1b\transformed\navigation-runtime-ktx-2.7.7\res
+com.antidpi.mobile.app-ui-tooling-preview-release-7 C:\Users\ereny\.gradle\caches\transforms-4\3ebdb7e5278e8e76ea76012eb649515c\transformed\ui-tooling-preview-release\res
+com.antidpi.mobile.app-ui-unit-release-8 C:\Users\ereny\.gradle\caches\transforms-4\43aba7d6ddbe73fcbcda17e0a5146258\transformed\ui-unit-release\res
+com.antidpi.mobile.app-runtime-saveable-release-9 C:\Users\ereny\.gradle\caches\transforms-4\480f286c4727679b2e143d15560b54cc\transformed\runtime-saveable-release\res
+com.antidpi.mobile.app-material3-release-10 C:\Users\ereny\.gradle\caches\transforms-4\4c8f4e08c3b84415189ceb000e07e2a8\transformed\material3-release\res
+com.antidpi.mobile.app-savedstate-ktx-1.2.1-11 C:\Users\ereny\.gradle\caches\transforms-4\4dd443e272748f7cdb9a034be7741a9a\transformed\savedstate-ktx-1.2.1\res
+com.antidpi.mobile.app-startup-runtime-1.1.1-12 C:\Users\ereny\.gradle\caches\transforms-4\4f69ada99d69868db1d854e7b161581c\transformed\startup-runtime-1.1.1\res
+com.antidpi.mobile.app-ui-geometry-release-13 C:\Users\ereny\.gradle\caches\transforms-4\5598aaa0affce3cc9f28e3349959f61b\transformed\ui-geometry-release\res
+com.antidpi.mobile.app-ui-release-14 C:\Users\ereny\.gradle\caches\transforms-4\5803c4945823f8c7e5df275afacc70d5\transformed\ui-release\res
+com.antidpi.mobile.app-annotation-experimental-1.4.0-15 C:\Users\ereny\.gradle\caches\transforms-4\62d99e892b409fb5ff56bf999c20cc2a\transformed\annotation-experimental-1.4.0\res
+com.antidpi.mobile.app-animation-release-16 C:\Users\ereny\.gradle\caches\transforms-4\65e1dccacc7f8c9fd93b3220a24a1d9c\transformed\animation-release\res
+com.antidpi.mobile.app-lifecycle-process-2.8.4-17 C:\Users\ereny\.gradle\caches\transforms-4\6b760d6e7d8501d91dfcb8daf14d3852\transformed\lifecycle-process-2.8.4\res
+com.antidpi.mobile.app-material-icons-core-release-18 C:\Users\ereny\.gradle\caches\transforms-4\71c578f1b6bfa049e992273537b68584\transformed\material-icons-core-release\res
+com.antidpi.mobile.app-lifecycle-viewmodel-savedstate-2.8.4-19 C:\Users\ereny\.gradle\caches\transforms-4\7f77335a3f99254f39da3bc1c4f08c71\transformed\lifecycle-viewmodel-savedstate-2.8.4\res
+com.antidpi.mobile.app-core-1.13.1-20 C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\res
+com.antidpi.mobile.app-foundation-release-21 C:\Users\ereny\.gradle\caches\transforms-4\8f1e73f6da4fa61503a11449a1a0dbf4\transformed\foundation-release\res
+com.antidpi.mobile.app-activity-ktx-1.9.1-22 C:\Users\ereny\.gradle\caches\transforms-4\9024f3a43563c6e7cf0c66999046d61d\transformed\activity-ktx-1.9.1\res
+com.antidpi.mobile.app-lifecycle-viewmodel-release-23 C:\Users\ereny\.gradle\caches\transforms-4\97ee75f94c153aca98ca7baf83268847\transformed\lifecycle-viewmodel-release\res
+com.antidpi.mobile.app-material-icons-extended-release-24 C:\Users\ereny\.gradle\caches\transforms-4\9824334d5f70ab66405dccff8d83317d\transformed\material-icons-extended-release\res
+com.antidpi.mobile.app-lifecycle-viewmodel-ktx-2.8.4-25 C:\Users\ereny\.gradle\caches\transforms-4\9ab6b1c7d2894c682c6e55d242e5cda2\transformed\lifecycle-viewmodel-ktx-2.8.4\res
+com.antidpi.mobile.app-material-ripple-release-26 C:\Users\ereny\.gradle\caches\transforms-4\9b31dfd8259d27ed2e8387439d30fb15\transformed\material-ripple-release\res
+com.antidpi.mobile.app-runtime-release-27 C:\Users\ereny\.gradle\caches\transforms-4\9d0b5ae9d2485e21aeb27f17d1367963\transformed\runtime-release\res
+com.antidpi.mobile.app-core-runtime-2.2.0-28 C:\Users\ereny\.gradle\caches\transforms-4\a290be0f7aff2aa41f4a22d4c761595d\transformed\core-runtime-2.2.0\res
+com.antidpi.mobile.app-activity-1.9.1-29 C:\Users\ereny\.gradle\caches\transforms-4\b5ca10840290eea65fddcbf546d6330d\transformed\activity-1.9.1\res
+com.antidpi.mobile.app-savedstate-1.2.1-30 C:\Users\ereny\.gradle\caches\transforms-4\b8caccf11071e01d091bfea4fc7f0662\transformed\savedstate-1.2.1\res
+com.antidpi.mobile.app-navigation-common-2.7.7-31 C:\Users\ereny\.gradle\caches\transforms-4\bce4102bbeb9a4419b6c79b8cad6d93b\transformed\navigation-common-2.7.7\res
+com.antidpi.mobile.app-core-ktx-1.13.1-32 C:\Users\ereny\.gradle\caches\transforms-4\bd40cf8dc006b05070cb93c320b47cd1\transformed\core-ktx-1.13.1\res
+com.antidpi.mobile.app-animation-core-release-33 C:\Users\ereny\.gradle\caches\transforms-4\c79865d6023f6dc01e394494e06afe56\transformed\animation-core-release\res
+com.antidpi.mobile.app-ui-util-release-34 C:\Users\ereny\.gradle\caches\transforms-4\cd8eb785a62951c31428e9fb675dc35e\transformed\ui-util-release\res
+com.antidpi.mobile.app-lifecycle-livedata-core-2.8.4-35 C:\Users\ereny\.gradle\caches\transforms-4\d1b27917db29b14d37e206cbd7ccbe3a\transformed\lifecycle-livedata-core-2.8.4\res
+com.antidpi.mobile.app-lifecycle-viewmodel-compose-release-36 C:\Users\ereny\.gradle\caches\transforms-4\d3529c3d22676fcbb4011777a384f56a\transformed\lifecycle-viewmodel-compose-release\res
+com.antidpi.mobile.app-profileinstaller-1.3.1-37 C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\res
+com.antidpi.mobile.app-lifecycle-runtime-ktx-release-38 C:\Users\ereny\.gradle\caches\transforms-4\db033886810b11d892d1f3e4fe3cda1e\transformed\lifecycle-runtime-ktx-release\res
+com.antidpi.mobile.app-navigation-runtime-2.7.7-39 C:\Users\ereny\.gradle\caches\transforms-4\dd452a7dc847b841c321e849061582b2\transformed\navigation-runtime-2.7.7\res
+com.antidpi.mobile.app-customview-poolingcontainer-1.0.0-40 C:\Users\ereny\.gradle\caches\transforms-4\e16dba99f9cc53f3fedfd59a76bf22d6\transformed\customview-poolingcontainer-1.0.0\res
+com.antidpi.mobile.app-lifecycle-runtime-release-41 C:\Users\ereny\.gradle\caches\transforms-4\ed39278dbdcb53709bbd5de5b3d151c6\transformed\lifecycle-runtime-release\res
+com.antidpi.mobile.app-navigation-compose-2.7.7-42 C:\Users\ereny\.gradle\caches\transforms-4\f0c60be612bf3532e4eb77b73895f5d5\transformed\navigation-compose-2.7.7\res
+com.antidpi.mobile.app-ui-text-release-43 C:\Users\ereny\.gradle\caches\transforms-4\f1f51d69ba0382210601ebec3f08a90c\transformed\ui-text-release\res
+com.antidpi.mobile.app-ui-graphics-release-44 C:\Users\ereny\.gradle\caches\transforms-4\f38a38d8502c30992c2b7bcfaa538569\transformed\ui-graphics-release\res
+com.antidpi.mobile.app-navigation-common-ktx-2.7.7-45 C:\Users\ereny\.gradle\caches\transforms-4\ff03dc0ddea31f7b0ceae20eca039903\transformed\navigation-common-ktx-2.7.7\res
+com.antidpi.mobile.app-resValues-46 C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\build\generated\res\resValues\debug
+com.antidpi.mobile.app-packageDebugResources-47 C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.antidpi.mobile.app-packageDebugResources-48 C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.antidpi.mobile.app-debug-49 C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.antidpi.mobile.app-debug-50 C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\debug\res
+com.antidpi.mobile.app-main-51 C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\res

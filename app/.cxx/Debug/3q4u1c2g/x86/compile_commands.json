@@ -1,0 +1,27 @@
+[
+{
+  "directory": "C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/.cxx/Debug/3q4u1c2g/x86",
+  "command": "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=i686-none-linux-android26 --sysroot=C:/Users/ereny/AppData/Local/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dantidpi_EXPORTS -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/ciadpi\" -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/tun2socks\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Wall -O3 -Wall -Wextra -O3 -fPIC -fno-limit-debug-info  -fPIC -o CMakeFiles\\antidpi.dir\\ciadpi\\desync.c.o -c \"C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\ciadpi\\desync.c\"",
+  "file": "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\ciadpi\\desync.c"
+},
+{
+  "directory": "C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/.cxx/Debug/3q4u1c2g/x86",
+  "command": "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=i686-none-linux-android26 --sysroot=C:/Users/ereny/AppData/Local/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dantidpi_EXPORTS -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/ciadpi\" -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/tun2socks\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Wall -O3 -Wall -Wextra -O3 -fPIC -fno-limit-debug-info  -fPIC -o CMakeFiles\\antidpi.dir\\ciadpi\\conntrack.c.o -c \"C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\ciadpi\\conntrack.c\"",
+  "file": "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\ciadpi\\conntrack.c"
+},
+{
+  "directory": "C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/.cxx/Debug/3q4u1c2g/x86",
+  "command": "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=i686-none-linux-android26 --sysroot=C:/Users/ereny/AppData/Local/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dantidpi_EXPORTS -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/ciadpi\" -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/tun2socks\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Wall -O3 -Wall -Wextra -O3 -fPIC -fno-limit-debug-info  -fPIC -o CMakeFiles\\antidpi.dir\\ciadpi\\proxy.c.o -c \"C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\ciadpi\\proxy.c\"",
+  "file": "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\ciadpi\\proxy.c"
+},
+{
+  "directory": "C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/.cxx/Debug/3q4u1c2g/x86",
+  "command": "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=i686-none-linux-android26 --sysroot=C:/Users/ereny/AppData/Local/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dantidpi_EXPORTS -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/ciadpi\" -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/tun2socks\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Wall -O3 -Wall -Wextra -O3 -fPIC -fno-limit-debug-info  -fPIC -o CMakeFiles\\antidpi.dir\\tun2socks\\tun2socks.c.o -c \"C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\tun2socks\\tun2socks.c\"",
+  "file": "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\tun2socks\\tun2socks.c"
+},
+{
+  "directory": "C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/.cxx/Debug/3q4u1c2g/x86",
+  "command": "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=i686-none-linux-android26 --sysroot=C:/Users/ereny/AppData/Local/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dantidpi_EXPORTS -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/ciadpi\" -I\"C:/Users/ereny/Documents/GoodByeDPI For Mobile/app/src/main/cpp/tun2socks\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Wall -O3 -Wall -Wextra -O3 -fPIC -fno-limit-debug-info  -fPIC -o CMakeFiles\\antidpi.dir\\jni_bridge.c.o -c \"C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\jni_bridge.c\"",
+  "file": "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\jni_bridge.c"
+}
+]

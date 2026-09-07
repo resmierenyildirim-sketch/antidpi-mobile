@@ -1,0 +1,7 @@
+ninja: Entering directory `C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\.cxx\Debug\3q4u1c2g\x86'
+[1/6] Building C object CMakeFiles/antidpi.dir/ciadpi/conntrack.c.o
+[2/6] Building C object CMakeFiles/antidpi.dir/jni_bridge.c.o
+[3/6] Building C object CMakeFiles/antidpi.dir/tun2socks/tun2socks.c.o
+[4/6] Building C object CMakeFiles/antidpi.dir/ciadpi/desync.c.o
+[5/6] Building C object CMakeFiles/antidpi.dir/ciadpi/proxy.c.o
+[6/6] Linking C shared library "C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\build\intermediates\cxx\Debug\3q4u1c2g\obj\x86\libantidpi.so"

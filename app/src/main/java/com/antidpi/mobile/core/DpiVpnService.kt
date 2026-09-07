@@ -14,11 +14,18 @@ import com.antidpi.mobile.AntiDpiApp
 import com.antidpi.mobile.R
 import com.antidpi.mobile.data.NetworkStats
 import com.antidpi.mobile.ui.MainActivity
+import io.github.dovecoteescapee.byedpi.core.ByeDpiProxy
+import io.github.dovecoteescapee.byedpi.core.TProxyService
 import kotlinx.coroutines.*
+import java.io.File
 
 class DpiVpnService : VpnService() {
 
+    private val byeDpiProxy = ByeDpiProxy()
+    private var proxyJob: Job? = null
     private var vpnInterface: ParcelFileDescriptor? = null
+    private var configFile: File? = null
+
     private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
     private var statsJob: Job? = null
 
@@ -54,23 +61,46 @@ class DpiVpnService : VpnService() {
         try {
             val prefs = (application as AntiDpiApp).preferencesManager
             val profile = prefs.getActiveProfile()
+            val port = 1080
 
+            // 1. Start ByeDPI SOCKS5 Proxy
+            val args = profile.toArgs(ip = "127.0.0.1", port = port)
+            val socketFd = byeDpiProxy.createSocket(args)
+            if (socketFd < 0) {
+                Log.e(TAG, "Failed to create ByeDPI socket")
+                DpiEngineManager.setConnected(false)
+                return
+            }
+
+            proxyJob = serviceScope.launch(Dispatchers.IO) {
+                val code = byeDpiProxy.startProxy(socketFd)
+                Log.i(TAG, "ByeDpi proxy exited with code: $code")
+            }
+
+            // Small delay to ensure proxy is listening
+            Thread.sleep(100)
+
+            // 2. Build Android TUN Interface
             val builder = Builder()
                 .setSession(getString(R.string.app_name))
-                .setMtu(1500)
-                .addAddress("10.0.0.2", 32)
+                .setMtu(8500)
+                .addAddress("10.10.10.10", 32)
                 .addRoute("0.0.0.0", 0)
                 .addDnsServer("1.1.1.1")
                 .addDnsServer("8.8.8.8")
 
-            // Exclude our own app from the VPN tunnel to prevent recursion
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                builder.setMetered(false)
+            }
+
+            // Exclude self package
             try {
                 builder.addDisallowedApplication(packageName)
             } catch (e: PackageManager.NameNotFoundException) {
                 Log.w(TAG, "Failed to disallow self package", e)
             }
 
-            // Exclude user-selected apps (e.g. banking apps)
+            // Exclude user-selected apps
             for (appPkg in prefs.excludedApps) {
                 try {
                     builder.addDisallowedApplication(appPkg)
@@ -84,39 +114,36 @@ class DpiVpnService : VpnService() {
 
             if (vpnInterface == null) {
                 Log.e(TAG, "Failed to establish VPN interface (null fd)")
-                DpiEngineManager.setConnected(false)
+                stopVpn()
                 return
             }
 
             val tunFd = vpnInterface!!.fd
 
-            // Register this VpnService with native bridge so it can call protect(socketFd)
-            NativeBridge.nativeRegisterVpnService(this)
+            // 3. Create YAML config for hev-socks5-tunnel
+            val tun2socksConfig = """
+            misc:
+              task-stack-size: 81920
+            socks5:
+              mtu: 8500
+              address: 127.0.0.1
+              port: $port
+              udp: udp
+            """.trimIndent()
 
-            // Start native DPI bypass engine
-            val res = NativeBridge.nativeStartEngine(
-                tunFd = tunFd,
-                socksPort = 1080,
-                mode = profile.mode,
-                splitOffset = profile.splitOffset,
-                fakeTtl = profile.fakeTtl,
-                disorder = profile.disorder,
-                fakeData = profile.fakeData,
-                fakeHost = profile.fakeHost
-            )
+            val tempFile = File.createTempFile("tun_config", ".yaml", cacheDir)
+            tempFile.writeText(tun2socksConfig)
+            this.configFile = tempFile
 
-            if (res != 0) {
-                Log.e(TAG, "Native engine failed to start with code: $res")
-                stopVpn()
-                return
-            }
+            // 4. Start hev-socks5-tunnel with lwIP IP stack
+            TProxyService.TProxyStartService(tempFile.absolutePath, tunFd)
 
             connectionStartTime = System.currentTimeMillis()
             DpiEngineManager.setConnected(true)
-            startForeground(NOTIFICATION_ID, buildNotification("DPI Koruması Aktif - Hız Kısıtlaması Yok"))
+            startForeground(NOTIFICATION_ID, buildNotification("AntiDPI Aktif - Sıfır Hız Kaybı"))
 
             startStatsPolling()
-            Log.i(TAG, "DpiVpnService successfully started with profile: ${profile.name}")
+            Log.i(TAG, "DpiVpnService successfully started with ByeDPI & hev-socks5-tunnel! Profile: ${profile.name}")
 
         } catch (e: Exception) {
             Log.e(TAG, "Exception starting DpiVpnService", e)
@@ -129,31 +156,35 @@ class DpiVpnService : VpnService() {
         statsJob = serviceScope.launch {
             while (isActive) {
                 delay(1000)
-                val rawStats = NativeBridge.nativeGetStats()
-                if (rawStats != null && rawStats.size >= 4) {
-                    val bytesIn = rawStats[0]
-                    val bytesOut = rawStats[1]
-                    val packetsDesynced = rawStats[2]
-                    val activeConn = rawStats[3].toInt()
+                try {
+                    val rawStats = TProxyService.TProxyGetStats()
+                    if (rawStats.size >= 4) {
+                        val txPackets = rawStats[0]
+                        val txBytes = rawStats[1]
+                        val rxPackets = rawStats[2]
+                        val rxBytes = rawStats[3]
 
-                    val speedIn = if (lastBytesIn > 0 && bytesIn >= lastBytesIn) bytesIn - lastBytesIn else 0L
-                    val speedOut = if (lastBytesOut > 0 && bytesOut >= lastBytesOut) bytesOut - lastBytesOut else 0L
+                        val speedIn = if (lastBytesIn > 0 && rxBytes >= lastBytesIn) rxBytes - lastBytesIn else 0L
+                        val speedOut = if (lastBytesOut > 0 && txBytes >= lastBytesOut) txBytes - lastBytesOut else 0L
 
-                    lastBytesIn = bytesIn
-                    lastBytesOut = bytesOut
+                        lastBytesIn = rxBytes
+                        lastBytesOut = txBytes
 
-                    val duration = System.currentTimeMillis() - connectionStartTime
+                        val duration = System.currentTimeMillis() - connectionStartTime
 
-                    val currentStats = NetworkStats(
-                        bytesIn = bytesIn,
-                        bytesOut = bytesOut,
-                        packetsDesynced = packetsDesynced,
-                        activeConnections = activeConn,
-                        downloadSpeedBps = speedIn,
-                        uploadSpeedBps = speedOut,
-                        connectionDurationMs = duration
-                    )
-                    DpiEngineManager.updateStats(currentStats)
+                        val currentStats = NetworkStats(
+                            bytesIn = rxBytes,
+                            bytesOut = txBytes,
+                            packetsDesynced = txPackets,
+                            activeConnections = 1,
+                            downloadSpeedBps = speedIn,
+                            uploadSpeedBps = speedOut,
+                            connectionDurationMs = duration
+                        )
+                        DpiEngineManager.updateStats(currentStats)
+                    }
+                } catch (e: Exception) {
+                    Log.w(TAG, "Failed to get stats", e)
                 }
             }
         }
@@ -163,7 +194,27 @@ class DpiVpnService : VpnService() {
         statsJob?.cancel()
         statsJob = null
 
-        NativeBridge.nativeStopEngine()
+        try {
+            TProxyService.TProxyStopService()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error stopping TProxyService", e)
+        }
+
+        try {
+            byeDpiProxy.stopProxy()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error stopping ByeDPI proxy", e)
+        }
+
+        proxyJob?.cancel()
+        proxyJob = null
+
+        try {
+            configFile?.delete()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error deleting config file", e)
+        }
+        configFile = null
 
         try {
             vpnInterface?.close()

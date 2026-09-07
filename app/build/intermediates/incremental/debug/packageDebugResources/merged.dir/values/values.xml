@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_dark">#0F172A</color>
+    <color name="black">#FF000000</color>
+    <color name="card_dark">#1E293B</color>
+    <color name="cyan_accent">#06B6D4</color>
+    <color name="green_neon">#10B981</color>
+    <color name="red_accent">#EF4444</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">AntiDPI Mobile</string>
+    <string name="btn_connect">Korumayı Başlat</string>
+    <string name="btn_disconnect">Bağlantıyı Kes</string>
+    <string name="preset_custom">Özel Mod</string>
+    <string name="preset_custom_desc">Gelişmiş kullanıcılar için özel parametreler.</string>
+    <string name="preset_standard">Standart SNI Split</string>
+    <string name="preset_standard_desc">TLS ClientHello paketini 2 parçaya böler. Hızlı ve dengeli.</string>
+    <string name="preset_turk_telekom">Türk Telekom &amp; Superonline</string>
+    <string name="preset_turk_telekom_desc">Agresif SNI parçalama + Disorder (Sırasız paket). Katı DPI için.</string>
+    <string name="preset_turkcell">Turkcell &amp; Vodafone Mobil</string>
+    <string name="preset_turkcell_desc">Sahte paket (Fake TTL) + TLS Header manipülasyonu.</string>
+    <string name="status_disconnected">BAĞLANTI KESİLDİ</string>
+    <string name="status_disconnected_desc">Koruma devre dışı. Sansürlü sitelere erişim engellenebilir.</string>
+    <string name="status_protected">KORUMA AKTİF</string>
+    <string name="status_protected_desc">DPI filtreleri atlatılıyor. İnternet hızınız kısıtlanmaz.</string>
+    <string name="vpn_channel_desc">AntiDPI servisinin aktif durumunu ve ağ hızını gösterir.</string>
+    <string name="vpn_channel_name">AntiDPI Koruma Durumu</string>
+    <style name="Theme.AntiDpi" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

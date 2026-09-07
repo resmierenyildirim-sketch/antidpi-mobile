@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\.cxx\\Debug\\3q4u1c2g\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\ereny\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\.cxx\\Debug\\3q4u1c2g\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "antidpi::@6890427a1f51a3e7e1df": {
+      "artifactName": "antidpi",
+      "abi": "x86",
+      "output": "C:\\Users\\ereny\\Documents\\GoodByeDPI For Mobile\\app\\build\\intermediates\\cxx\\Debug\\3q4u1c2g\\obj\\x86\\libantidpi.so",
+      "runtimeFiles": []
+    }
+  }
+}

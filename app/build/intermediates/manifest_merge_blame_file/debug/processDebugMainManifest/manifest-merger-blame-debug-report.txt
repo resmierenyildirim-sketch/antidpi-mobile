@@ -1,0 +1,188 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.antidpi.mobile"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+13-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:7:5-79
+13-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:7:22-76
+14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+14-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:8:5-77
+14-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:8:22-74
+15    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+15-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:9:5-77
+15-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:9:22-74
+16    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+16-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:10:5-11:53
+16-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:10:22-74
+17
+18    <permission
+18-->[androidx.core:core:1.13.1] C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+19        android:name="com.antidpi.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+19-->[androidx.core:core:1.13.1] C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+20        android:protectionLevel="signature" />
+20-->[androidx.core:core:1.13.1] C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+21
+22    <uses-permission android:name="com.antidpi.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+22-->[androidx.core:core:1.13.1] C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+22-->[androidx.core:core:1.13.1] C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+23
+24    <application
+24-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:13:5-50:19
+25        android:name="com.antidpi.mobile.AntiDpiApp"
+25-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:14:9-35
+26        android:allowBackup="true"
+26-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:15:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.13.1] C:\Users\ereny\.gradle\caches\transforms-4\8c83bcc76031a3c0cc9fb33df21f2b71\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+28        android:dataExtractionRules="@xml/data_extraction_rules"
+28-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:16:9-65
+29        android:debuggable="true"
+30        android:extractNativeLibs="false"
+31        android:fullBackupContent="@xml/backup_rules"
+31-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:17:9-54
+32        android:icon="@mipmap/ic_launcher"
+32-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:18:9-43
+33        android:label="@string/app_name"
+33-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:19:9-41
+34        android:networkSecurityConfig="@xml/network_security_config"
+34-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:23:9-69
+35        android:roundIcon="@mipmap/ic_launcher"
+35-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:20:9-48
+36        android:supportsRtl="true"
+36-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:21:9-35
+37        android:theme="@style/Theme.AntiDpi" >
+37-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:22:9-45
+38        <activity
+38-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:26:9-35:20
+39            android:name="com.antidpi.mobile.ui.MainActivity"
+39-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:27:13-44
+40            android:exported="true"
+40-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:28:13-36
+41            android:theme="@style/Theme.AntiDpi"
+41-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:29:13-49
+42            android:windowSoftInputMode="adjustResize" >
+42-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:30:13-55
+43            <intent-filter>
+43-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:31:13-34:29
+44                <action android:name="android.intent.action.MAIN" />
+44-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:32:17-69
+44-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:32:25-66
+45
+46                <category android:name="android.intent.category.LAUNCHER" />
+46-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:33:17-77
+46-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:33:27-74
+47            </intent-filter>
+48        </activity>
+49
+50        <service
+50-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:37:9-48:19
+51            android:name="com.antidpi.mobile.core.DpiVpnService"
+51-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:38:13-47
+52            android:exported="false"
+52-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:40:13-37
+53            android:foregroundServiceType="specialUse"
+53-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:41:13-55
+54            android:permission="android.permission.BIND_VPN_SERVICE" >
+54-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:39:13-69
+55            <intent-filter>
+55-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:42:13-44:29
+56                <action android:name="android.net.VpnService" />
+56-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:43:17-65
+56-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:43:25-62
+57            </intent-filter>
+58
+59            <property
+59-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:45:13-47:73
+60                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+60-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:46:17-76
+61                android:value="Local DPI circumvention proxy service" />
+61-->C:\Users\ereny\Documents\GoodByeDPI For Mobile\app\src\main\AndroidManifest.xml:47:17-70
+62        </service>
+63
+64        <provider
+64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+65            android:name="androidx.startup.InitializationProvider"
+65-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+66            android:authorities="com.antidpi.mobile.androidx-startup"
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+67            android:exported="false" >
+67-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+68            <meta-data
+68-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+69-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+70                android:value="androidx.startup" />
+70-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ereny\.gradle\caches\transforms-4\2d8d18b4193a05ecfaba33ab664e653c\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+71            <meta-data
+71-->[androidx.lifecycle:lifecycle-process:2.8.4] C:\Users\ereny\.gradle\caches\transforms-4\6b760d6e7d8501d91dfcb8daf14d3852\transformed\lifecycle-process-2.8.4\AndroidManifest.xml:29:13-31:52
+72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+72-->[androidx.lifecycle:lifecycle-process:2.8.4] C:\Users\ereny\.gradle\caches\transforms-4\6b760d6e7d8501d91dfcb8daf14d3852\transformed\lifecycle-process-2.8.4\AndroidManifest.xml:30:17-78
+73                android:value="androidx.startup" />
+73-->[androidx.lifecycle:lifecycle-process:2.8.4] C:\Users\ereny\.gradle\caches\transforms-4\6b760d6e7d8501d91dfcb8daf14d3852\transformed\lifecycle-process-2.8.4\AndroidManifest.xml:31:17-49
+74            <meta-data
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+75                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+76                android:value="androidx.startup" />
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+77        </provider>
+78
+79        <activity
+79-->[androidx.compose.ui:ui-tooling-android:1.6.8] C:\Users\ereny\.gradle\caches\transforms-4\19287dbf015a8594106da43981cda143\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
+80            android:name="androidx.compose.ui.tooling.PreviewActivity"
+80-->[androidx.compose.ui:ui-tooling-android:1.6.8] C:\Users\ereny\.gradle\caches\transforms-4\19287dbf015a8594106da43981cda143\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
+81            android:exported="true" />
+81-->[androidx.compose.ui:ui-tooling-android:1.6.8] C:\Users\ereny\.gradle\caches\transforms-4\19287dbf015a8594106da43981cda143\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
+82
+83        <receiver
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+84            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+85            android:directBootAware="false"
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+86            android:enabled="true"
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+87            android:exported="true"
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+88            android:permission="android.permission.DUMP" >
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+89            <intent-filter>
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+90                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+91            </intent-filter>
+92            <intent-filter>
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+93                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+94            </intent-filter>
+95            <intent-filter>
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+96                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+97            </intent-filter>
+98            <intent-filter>
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+99                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ereny\.gradle\caches\transforms-4\d4cace7acfdc09112e84a9064fac8a8a\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+100            </intent-filter>
+101        </receiver>
+102    </application>
+103
+104</manifest>
