@@ -171,12 +171,12 @@ fun LogsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Oyun Reklam Engelleme Testi",
+                            text = "Oyun & Web Reklam Engelleme Testi",
                             style = Typography.titleLarge.copy(fontSize = 14.sp),
                             color = TextPrimary
                         )
                         Text(
-                            text = "UnityAds, AdMob, AppLovin sunucu engellerini test eder.",
+                            text = "Oyun (Unity, AppLovin) ve Web (AdSense, DoubleClick) sunucu engellerini test eder.",
                             style = Typography.labelSmall,
                             color = TextSecondary
                         )
@@ -188,7 +188,12 @@ fun LogsScreen(
                             adBlockTestResult = null
                             coroutineScope.launch {
                                 val result = withContext(Dispatchers.IO) {
-                                    val testDomains = listOf("unityads.unity3d.com", "adservice.google.com", "ads.applovin.com")
+                                    val testDomains = listOf(
+                                        "unityads.unity3d.com",
+                                        "adservice.google.com",
+                                        "pagead2.googlesyndication.com",
+                                        "ads.applovin.com"
+                                    )
                                     var blockedCount = 0
                                     val details = StringBuilder()
 
@@ -213,7 +218,7 @@ fun LogsScreen(
                                     } else if (blockedCount > 0) {
                                         "KISMİ ENGELLEME: $blockedCount/${testDomains.size} reklam ağı engellendi.\n" + details.toString().trimEnd()
                                     } else {
-                                        "REKLAMLAR ENGELLENMEDİ: Reklam sunucuları erişilebilir durumda. (Oyun Reklam Engelleyicinin açık olduğundan emin olun.)\n" + details.toString().trimEnd()
+                                        "REKLAMLAR ENGELLENMEDİ: Reklam sunucuları erişilebilir durumda. (Oyun & Web Reklam Engelleyicinin açık olduğundan emin olun.)\n" + details.toString().trimEnd()
                                     }
                                 }
                                 adBlockTestResult = result

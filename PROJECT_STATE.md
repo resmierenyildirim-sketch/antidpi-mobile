@@ -29,11 +29,11 @@ Bu dosya, **AntiDPI Mobile** projesinin mevcut mimarisini, teknik kararlarını,
 * **`AppUpdater.kt`:** Uygulama açılışında GitHub Releases API'sini sorgular. Yeni sürüm geldiğinde kullanıcıya indirme ve tek tıkla kurma diyalogu gösterir (OTA Self-Updater).
 * **`profiles.json` (Remote Config):** GitHub'daki `profiles.json` dosyasını uzaktan okur. Operatörler filtre değiştirdiğinde uygulama güncellemesi gerekmeksizin yeni profiller kullanıcılara ulaşır.
 * **Modern Arayüz (Jetpack Compose Material 3):**
-  - *Ana Sayfa:* Parlayan animasyonlu güç butonu, tek dokunuşla **Oyun İçi Reklam Engelleyici (AdBlock)** anahtarı, canlı download/upload hız sayaçları ve anlık ping.
+  - *Ana Sayfa:* Parlayan animasyonlu güç butonu, tek dokunuşla **Oyun & Web Reklam Engelleyici (AdBlock)** anahtarı, canlı download/upload hız sayaçları ve anlık ping.
   - *Profiller:* Türk Telekom, Superonline, Turkcell, Vodafone için optimize şablonlar ve özel ayarlar.
-  - *Şifreli DNS & Oyun Reklam Engelleyici:* Mobil oyunlardaki video/afiş reklamları engelleyen Anycast AdBlock DNS (AdGuard, AdGuard Family, Mullvad, Control D) veya Cloudflare/Google standart DoH.
+  - *Şifreli DNS & Reklam Engelleyici:* Mobil oyunlardaki ve sitelerdeki reklamları engelleyen Anycast AdBlock DNS (AdGuard, AdGuard Family, Mullvad, Control D) veya Cloudflare/Google standart DoH.
   - *Uygulama Ayracı (Per-App):* Banka ve yerel uygulamaları tünelden hariç tutma (Split Tunneling).
-  - *Günlükler & Tanı (Logs):* Canlı terminal akışı, tek dokunuşla Discord / Web erişim testi ve popüler oyun reklam ağları (UnityAds, AdMob, AppLovin) için anlık **Oyun Reklam Engelleme Testi**.
+  - *Günlükler & Tanı (Logs):* Canlı terminal akışı, tek dokunuşla Discord / Web erişim testi ve popüler oyun/web reklam ağları (Unity, AdSense, AppLovin) için anlık **Oyun & Web Reklam Engelleme Testi**.
 
 ---
 
@@ -43,8 +43,8 @@ Bu dosya, **AntiDPI Mobile** projesinin mevcut mimarisini, teknik kararlarını,
 | :--- | :--- | :--- |
 | **GitHub Deposu** | [github.com/resmierenyildirim-sketch/antidpi-mobile](https://github.com/resmierenyildirim-sketch/antidpi-mobile) | Ana kod deposu |
 | **Web Sitesi (Landing Page)** | [resmierenyildirim-sketch.github.io/antidpi-mobile](https://resmierenyildirim-sketch.github.io/antidpi-mobile/) | GitHub Pages ile canlıda |
-| **İlk Sürüm (Release)** | [v1.0.0 Release](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/tag/v1.0.0) | Resmi v1.0.0 sürümü |
-| **Doğrudan APK İndir** | [AntiDPI-Mobile.apk İndir](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.0.0/AntiDPI-Mobile.apk) | Güncel kurulabilir paket (~18.4 MB) |
+| **Güncel Sürüm (Release)** | [v1.1.1 Release](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/tag/v1.1.1) | Resmi v1.1.1 sürümü |
+| **Doğrudan APK İndir** | [AntiDPI-Mobile.apk İndir](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.1.1/AntiDPI-Mobile.apk) | Güncel kurulabilir paket (~18.4 MB) |
 | **Yerel APK Dosyası** | `C:\Users\ereny\Documents\GoodByeDPI For Mobile\AntiDPI-Mobile.apk` | Bilgisayardaki derlenmiş dosya |
 | **Google Search Console Doğrulama** | `https://resmierenyildirim-sketch.github.io/antidpi-mobile/googlecb95e4c7f3e5f347.html` | Mülkiyet doğrulama dosyası canlıda |
 | **Site Haritası (Sitemap)** | `https://resmierenyildirim-sketch.github.io/antidpi-mobile/sitemap.xml` | Google bot taraması için |

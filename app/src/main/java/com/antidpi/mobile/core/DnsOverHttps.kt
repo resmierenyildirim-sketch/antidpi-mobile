@@ -25,28 +25,28 @@ object DnsOverHttpsResolver {
     val ADBLOCK_PROVIDERS = listOf(
         AdBlockDnsServer(
             name = "AdGuard Reklam Engelleyici (Önerilen)",
-            description = "Mobil oyunlardaki video ve banner reklamlarını (Unity, AdMob, AppLovin) engeller.",
+            description = "Mobil oyunlardaki video/afişler ile web sitelerindeki pop-up ve banner reklamlarını engeller.",
             primaryIp = "94.140.14.14",
             secondaryIp = "94.140.15.15",
             dohUrl = "https://dns.adguard-dns.com/dns-query"
         ),
         AdBlockDnsServer(
             name = "AdGuard Aile Koruması",
-            description = "Oyun reklamları + yetişkin içerik ve zararlı siteleri filtreler.",
+            description = "Oyun ve web reklamları + yetişkin içerik ve zararlı siteleri filtreler.",
             primaryIp = "94.140.14.15",
             secondaryIp = "94.140.15.16",
             dohUrl = "https://dns.adguard-dns.com/dns-query"
         ),
         AdBlockDnsServer(
             name = "Mullvad AdBlock DNS",
-            description = "Gizlilik odaklı, sıfır kayıt tutan yüksek hızlı reklam engelleyici.",
+            description = "Web ve oyunlardaki reklam/izleyicileri engelleyen sıfır kayıtlı gizlilik filtresi.",
             primaryIp = "194.242.2.3",
             secondaryIp = "194.242.2.4",
             dohUrl = "https://adblock.doh.mullvad.net/dns-query"
         ),
         AdBlockDnsServer(
             name = "Control D AdBlock",
-            description = "Düşük pingli Anycast ağında çalışan reklam ve izleyici filtresi.",
+            description = "Oyun ve sitelerdeki reklamları filtreleyen ultra düşük pingli Anycast ağı.",
             primaryIp = "76.76.2.2",
             secondaryIp = "76.76.10.2",
             dohUrl = "https://freedns.controld.com/p2"

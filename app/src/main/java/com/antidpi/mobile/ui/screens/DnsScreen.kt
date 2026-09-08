@@ -42,21 +42,21 @@ fun DnsScreen(
             .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // --- 1. GAME AD BLOCKER SECTION ---
+        // --- 1. GAME & WEB AD BLOCKER SECTION ---
         item {
             Text(
-                text = "Oyun Reklam Engelleyici",
+                text = "Oyun & Web Reklam Engelleyici",
                 style = Typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 color = TextPrimary
             )
             Text(
-                text = "Mobil oyunlarda ve uygulamalarda çıkan ara video (interstitial) ve afiş reklamlarını DNS seviyesinde engeller.",
+                text = "Mobil oyunlardaki video/afişler ile web sitelerindeki pop-up ve banner reklamlarını DNS seviyesinde engeller.",
                 style = Typography.bodyMedium,
                 color = TextSecondary
             )
         }
 
-        // Master Switch for Game AdBlock
+        // Master Switch for Game & Web AdBlock
         item {
             Box(
                 modifier = Modifier
@@ -106,12 +106,12 @@ fun DnsScreen(
                         }
                         Column {
                             Text(
-                                text = "Oyun İçi Reklam Engelleme",
+                                text = "Oyun & Web Reklam Engelleme",
                                 style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
                                 color = TextPrimary
                             )
                             Text(
-                                text = if (gameAdBlockEnabled) "Unity, AdMob, AppLovin reklamları engelleniyor" else "Reklam engelleme kapalı",
+                                text = if (gameAdBlockEnabled) "Oyun ve sitelerdeki reklamlar engelleniyor" else "Reklam engelleme kapalı",
                                 style = Typography.labelSmall,
                                 color = if (gameAdBlockEnabled) GreenNeon else TextMuted
                             )
@@ -360,7 +360,7 @@ fun DnsScreen(
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = "Oyun reklam engelleme, mobil oyunların reklam indirmesini engelleyerek hem seviye aralarındaki bekleme sürelerini sıfırlar hem de pil ve mobil veri tasarrufu sağlar.",
+                        text = "Oyun & Web reklam engelleme; mobil oyunlardaki video/afiş reklamlarını, web sitelerindeki pop-up ve banner'ları DNS seviyesinde bloke eder. YouTube video reklamları video ile aynı sunucudan aktığı için DNS ile engellenemez (ReVanced veya Brave önerilir).",
                         style = Typography.bodyMedium.copy(fontSize = 12.sp, lineHeight = 16.sp),
                         color = TextSecondary
                     )

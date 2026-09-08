@@ -178,7 +178,7 @@ class MainActivity : ComponentActivity() {
                                     if (isConnected) {
                                         Toast.makeText(
                                             this@MainActivity,
-                                            if (enabled) "Oyun Reklam Engelleyici açıldı. Uygulanıyor..." else "Oyun Reklam Engelleyici kapatıldı. Uygulanıyor...",
+                                            if (enabled) "Oyun & Web Reklam Engelleyici açıldı. Uygulanıyor..." else "Oyun & Web Reklam Engelleyici kapatıldı. Uygulanıyor...",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         DpiVpnService.stop(this@MainActivity)

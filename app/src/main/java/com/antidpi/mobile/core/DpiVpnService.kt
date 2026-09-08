@@ -149,7 +149,7 @@ class DpiVpnService : VpnService() {
             DpiEngineManager.setConnected(true)
 
             val notifText = if (prefs.gameAdBlockEnabled) {
-                "AntiDPI Aktif • Oyun Reklam Engelleyici Açık"
+                "AntiDPI Aktif • Oyun & Web Reklam Engelleyici Açık"
             } else {
                 "AntiDPI Aktif - Sıfır Hız Kaybı"
             }
@@ -157,10 +157,10 @@ class DpiVpnService : VpnService() {
 
             startStatsPolling()
             val adBlockStatus = if (prefs.gameAdBlockEnabled) "Açık (${prefs.gameAdBlockProvider})" else "Kapalı"
-            Log.i(TAG, "DpiVpnService successfully started with ByeDPI & hev-socks5-tunnel! Profile: ${profile.name}, Oyun AdBlock: $adBlockStatus")
+            Log.i(TAG, "DpiVpnService successfully started with ByeDPI & hev-socks5-tunnel! Profile: ${profile.name}, Oyun & Web AdBlock: $adBlockStatus")
             DpiEngineManager.addLog("VPN tüneli kuruldu (${profile.name})")
             if (prefs.gameAdBlockEnabled) {
-                DpiEngineManager.addLog("Oyun İçi Reklam Engelleyici devrede ($adBlockStatus)")
+                DpiEngineManager.addLog("Oyun & Web Reklam Engelleyici devrede ($adBlockStatus)")
             }
 
         } catch (e: Exception) {

@@ -261,7 +261,7 @@ fun HomeScreen(
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Text(
-                                text = "Oyun Reklam Engelleyici",
+                                text = "Oyun & Web Reklam Engelleyici",
                                 style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
                                 color = TextPrimary
                             )
@@ -286,9 +286,9 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = if (gameAdBlockEnabled) {
-                                "Oyun içi video ve afiş reklamlar engelleniyor"
+                                "Oyun ve sitelerdeki video/banner reklamlar engelleniyor"
                             } else {
-                                "Oyun reklamlarını engellemek için dokunun"
+                                "Oyun ve web reklamlarını engellemek için dokunun"
                             },
                             style = Typography.bodyMedium.copy(fontSize = 12.sp),
                             color = if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.85f) else TextMuted,
