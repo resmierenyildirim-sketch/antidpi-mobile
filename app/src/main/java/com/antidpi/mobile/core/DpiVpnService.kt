@@ -86,8 +86,15 @@ class DpiVpnService : VpnService() {
                 .setMtu(8500)
                 .addAddress("10.10.10.10", 32)
                 .addRoute("0.0.0.0", 0)
-                .addDnsServer("1.1.1.1")
-                .addDnsServer("8.8.8.8")
+
+            val dnsServers = prefs.getActiveDnsServers()
+            for (dns in dnsServers) {
+                try {
+                    builder.addDnsServer(dns)
+                } catch (e: Exception) {
+                    Log.w(TAG, "Failed to add DNS server $dns", e)
+                }
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 builder.setMetered(false)
@@ -140,10 +147,21 @@ class DpiVpnService : VpnService() {
 
             connectionStartTime = System.currentTimeMillis()
             DpiEngineManager.setConnected(true)
-            startForeground(NOTIFICATION_ID, buildNotification("AntiDPI Aktif - Sıfır Hız Kaybı"))
+
+            val notifText = if (prefs.gameAdBlockEnabled) {
+                "AntiDPI Aktif • Oyun Reklam Engelleyici Açık"
+            } else {
+                "AntiDPI Aktif - Sıfır Hız Kaybı"
+            }
+            startForeground(NOTIFICATION_ID, buildNotification(notifText))
 
             startStatsPolling()
-            Log.i(TAG, "DpiVpnService successfully started with ByeDPI & hev-socks5-tunnel! Profile: ${profile.name}")
+            val adBlockStatus = if (prefs.gameAdBlockEnabled) "Açık (${prefs.gameAdBlockProvider})" else "Kapalı"
+            Log.i(TAG, "DpiVpnService successfully started with ByeDPI & hev-socks5-tunnel! Profile: ${profile.name}, Oyun AdBlock: $adBlockStatus")
+            DpiEngineManager.addLog("VPN tüneli kuruldu (${profile.name})")
+            if (prefs.gameAdBlockEnabled) {
+                DpiEngineManager.addLog("Oyun İçi Reklam Engelleyici devrede ($adBlockStatus)")
+            }
 
         } catch (e: Exception) {
             Log.e(TAG, "Exception starting DpiVpnService", e)

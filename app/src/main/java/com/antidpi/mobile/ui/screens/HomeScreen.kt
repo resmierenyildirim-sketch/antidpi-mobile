@@ -31,8 +31,10 @@ fun HomeScreen(
     isConnected: Boolean,
     stats: NetworkStats,
     activeProfile: DpiProfile,
+    gameAdBlockEnabled: Boolean,
     onToggleClick: () -> Unit,
     onNavigateToProfiles: () -> Unit,
+    onToggleGameAdBlock: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -202,6 +204,108 @@ fun HomeScreen(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = "Profili Değiştir",
                     tint = TextMuted
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // Game AdBlocker Card
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(
+                    Brush.horizontalGradient(
+                        if (gameAdBlockEnabled) {
+                            listOf(Color(0xFF0D2821), CardDark)
+                        } else {
+                            listOf(CardDark, CardDark)
+                        }
+                    )
+                )
+                .border(
+                    1.dp,
+                    if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.45f) else CardBorder,
+                    RoundedCornerShape(16.dp)
+                )
+                .padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .size(42.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.18f) else CyanAccent.copy(alpha = 0.1f))
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.SportsEsports,
+                            contentDescription = null,
+                            tint = if (gameAdBlockEnabled) GreenNeon else TextMuted,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                    Column {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Text(
+                                text = "Oyun Reklam Engelleyici",
+                                style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                                color = TextPrimary
+                            )
+                            if (gameAdBlockEnabled) {
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(4.dp))
+                                        .background(GreenNeon.copy(alpha = 0.2f))
+                                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                                ) {
+                                    Text(
+                                        text = "AKTİF",
+                                        style = Typography.labelSmall.copy(
+                                            fontSize = 9.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = GreenNeon
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = if (gameAdBlockEnabled) {
+                                "Oyun içi video ve afiş reklamlar engelleniyor"
+                            } else {
+                                "Oyun reklamlarını engellemek için dokunun"
+                            },
+                            style = Typography.bodyMedium.copy(fontSize = 12.sp),
+                            color = if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.85f) else TextMuted,
+                            maxLines = 1
+                        )
+                    }
+                }
+
+                Switch(
+                    checked = gameAdBlockEnabled,
+                    onCheckedChange = { onToggleGameAdBlock(it) },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = GreenNeon,
+                        checkedTrackColor = GreenNeon.copy(alpha = 0.35f),
+                        uncheckedThumbColor = TextMuted,
+                        uncheckedTrackColor = SurfaceDark
+                    )
                 )
             }
         }

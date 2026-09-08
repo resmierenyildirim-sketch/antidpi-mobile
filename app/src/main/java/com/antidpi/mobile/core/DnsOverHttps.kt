@@ -12,7 +12,46 @@ data class DohServer(
     val bootstrapIps: List<String>
 )
 
+data class AdBlockDnsServer(
+    val name: String,
+    val description: String,
+    val primaryIp: String,
+    val secondaryIp: String,
+    val dohUrl: String
+)
+
 object DnsOverHttpsResolver {
+
+    val ADBLOCK_PROVIDERS = listOf(
+        AdBlockDnsServer(
+            name = "AdGuard Reklam Engelleyici (Önerilen)",
+            description = "Mobil oyunlardaki video ve banner reklamlarını (Unity, AdMob, AppLovin) engeller.",
+            primaryIp = "94.140.14.14",
+            secondaryIp = "94.140.15.15",
+            dohUrl = "https://dns.adguard-dns.com/dns-query"
+        ),
+        AdBlockDnsServer(
+            name = "AdGuard Aile Koruması",
+            description = "Oyun reklamları + yetişkin içerik ve zararlı siteleri filtreler.",
+            primaryIp = "94.140.14.15",
+            secondaryIp = "94.140.15.16",
+            dohUrl = "https://dns.adguard-dns.com/dns-query"
+        ),
+        AdBlockDnsServer(
+            name = "Mullvad AdBlock DNS",
+            description = "Gizlilik odaklı, sıfır kayıt tutan yüksek hızlı reklam engelleyici.",
+            primaryIp = "194.242.2.3",
+            secondaryIp = "194.242.2.4",
+            dohUrl = "https://adblock.doh.mullvad.net/dns-query"
+        ),
+        AdBlockDnsServer(
+            name = "Control D AdBlock",
+            description = "Düşük pingli Anycast ağında çalışan reklam ve izleyici filtresi.",
+            primaryIp = "76.76.2.2",
+            secondaryIp = "76.76.10.2",
+            dohUrl = "https://freedns.controld.com/p2"
+        )
+    )
 
     val PROVIDERS = listOf(
         DohServer(
@@ -31,7 +70,7 @@ object DnsOverHttpsResolver {
             bootstrapIps = listOf("9.9.9.9", "149.112.112.112")
         ),
         DohServer(
-            name = "AdGuard (Reklam Engelleyici)",
+            name = "AdGuard",
             url = "https://dns.adguard-dns.com/dns-query",
             bootstrapIps = listOf("94.140.14.14", "94.140.15.15")
         )

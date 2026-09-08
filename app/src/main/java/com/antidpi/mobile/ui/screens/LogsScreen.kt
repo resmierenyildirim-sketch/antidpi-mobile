@@ -149,6 +149,107 @@ fun LogsScreen(
             }
         }
 
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Game AdBlock Diagnostic Card
+        var isAdBlockTesting by remember { mutableStateOf(false) }
+        var adBlockTestResult by remember { mutableStateOf<String?>(null) }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(CardDark)
+                .border(1.dp, CardBorder, RoundedCornerShape(16.dp))
+                .padding(14.dp)
+        ) {
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Oyun Reklam Engelleme Testi",
+                            style = Typography.titleLarge.copy(fontSize = 14.sp),
+                            color = TextPrimary
+                        )
+                        Text(
+                            text = "UnityAds, AdMob, AppLovin sunucu engellerini test eder.",
+                            style = Typography.labelSmall,
+                            color = TextSecondary
+                        )
+                    }
+
+                    Button(
+                        onClick = {
+                            isAdBlockTesting = true
+                            adBlockTestResult = null
+                            coroutineScope.launch {
+                                val result = withContext(Dispatchers.IO) {
+                                    val testDomains = listOf("unityads.unity3d.com", "adservice.google.com", "ads.applovin.com")
+                                    var blockedCount = 0
+                                    val details = StringBuilder()
+
+                                    for (domain in testDomains) {
+                                        try {
+                                            val addrs = java.net.InetAddress.getAllByName(domain)
+                                            val isBlockedIp = addrs.any { it.hostAddress == "0.0.0.0" || it.hostAddress == "127.0.0.1" }
+                                            if (isBlockedIp) {
+                                                blockedCount++
+                                                details.append("$domain: Engellendi (0.0.0.0)\n")
+                                            } else {
+                                                details.append("$domain: Erişilebilir (${addrs.firstOrNull()?.hostAddress})\n")
+                                            }
+                                        } catch (e: Exception) {
+                                            blockedCount++
+                                            details.append("$domain: Engellendi (Adres çözümlenemedi)\n")
+                                        }
+                                    }
+
+                                    if (blockedCount == testDomains.size) {
+                                        "REKLAM ENGELİ BAŞARILI: $blockedCount/${testDomains.size} reklam ağı engellendi!\n" + details.toString().trimEnd()
+                                    } else if (blockedCount > 0) {
+                                        "KISMİ ENGELLEME: $blockedCount/${testDomains.size} reklam ağı engellendi.\n" + details.toString().trimEnd()
+                                    } else {
+                                        "REKLAMLAR ENGELLENMEDİ: Reklam sunucuları erişilebilir durumda. (Oyun Reklam Engelleyicinin açık olduğundan emin olun.)\n" + details.toString().trimEnd()
+                                    }
+                                }
+                                adBlockTestResult = result
+                                DpiEngineManager.addLog("AdBlock Test Sonucu:\n$result")
+                                isAdBlockTesting = false
+                            }
+                        },
+                        enabled = !isAdBlockTesting,
+                        colors = ButtonDefaults.buttonColors(containerColor = GreenNeon, contentColor = BgDark),
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                    ) {
+                        if (isAdBlockTesting) {
+                            CircularProgressIndicator(modifier = Modifier.size(16.dp), color = BgDark, strokeWidth = 2.dp)
+                        } else {
+                            Icon(Icons.Default.PlayArrow, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("Test Et", style = Typography.labelSmall.copy(fontWeight = FontWeight.Bold))
+                        }
+                    }
+                }
+
+                adBlockTestResult?.let {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = it,
+                        style = Typography.bodyMedium.copy(
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = if (it.contains("BAŞARILI")) GreenNeon else if (it.contains("KISMİ")) CyanAccent else RedAccent
+                        )
+                    )
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(14.dp))
 
         // Log Console Box

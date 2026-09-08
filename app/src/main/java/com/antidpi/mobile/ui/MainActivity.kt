@@ -63,13 +63,19 @@ class MainActivity : ComponentActivity() {
                 val stats by DpiEngineManager.stats.collectAsState()
                 val logs by DpiEngineManager.logs.collectAsState()
                 var activeProfile by remember { mutableStateOf(prefs.getActiveProfile()) }
+                var gameAdBlockEnabled by remember { mutableStateOf(prefs.gameAdBlockEnabled) }
 
                 var updateInfo by remember { mutableStateOf<UpdateInfo?>(null) }
                 var downloadProgress by remember { mutableStateOf<Float?>(null) }
 
                 // Check for updates and remote profiles on launch
                 LaunchedEffect(Unit) {
-                    val info = AppUpdater.checkForUpdate("1.0.0")
+                    val currentVer = try {
+                        packageManager.getPackageInfo(packageName, 0).versionName ?: "1.0.0"
+                    } catch (e: Exception) {
+                        "1.0.0"
+                    }
+                    val info = AppUpdater.checkForUpdate(currentVer)
                     if (info != null && info.hasUpdate) {
                         updateInfo = info
                     }
@@ -159,11 +165,25 @@ class MainActivity : ComponentActivity() {
                                 isConnected = isConnected,
                                 stats = stats,
                                 activeProfile = activeProfile,
+                                gameAdBlockEnabled = gameAdBlockEnabled,
                                 onToggleClick = {
                                     handleToggleVpn()
                                 },
                                 onNavigateToProfiles = {
                                     navController.navigate(Screen.Profiles.route)
+                                },
+                                onToggleGameAdBlock = { enabled ->
+                                    gameAdBlockEnabled = enabled
+                                    prefs.gameAdBlockEnabled = enabled
+                                    if (isConnected) {
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            if (enabled) "Oyun Reklam Engelleyici açıldı. Uygulanıyor..." else "Oyun Reklam Engelleyici kapatıldı. Uygulanıyor...",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        DpiVpnService.stop(this@MainActivity)
+                                        DpiVpnService.start(this@MainActivity)
+                                    }
                                 }
                             )
                         }
@@ -187,7 +207,21 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Screen.Dns.route) {
-                            DnsScreen(prefs = prefs)
+                            DnsScreen(
+                                prefs = prefs,
+                                onSettingsChanged = {
+                                    gameAdBlockEnabled = prefs.gameAdBlockEnabled
+                                    if (isConnected) {
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            "DNS / Reklam ayarları güncellendi. Uygulanıyor...",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        DpiVpnService.stop(this@MainActivity)
+                                        DpiVpnService.start(this@MainActivity)
+                                    }
+                                }
+                            )
                         }
 
                         composable(Screen.Apps.route) {

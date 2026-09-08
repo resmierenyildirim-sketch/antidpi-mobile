@@ -40,9 +40,36 @@ class PreferencesManager(context: Context) {
         get() = prefs.getString(KEY_DOH_CUSTOM_URL, "https://1.1.1.1/dns-query") ?: "https://1.1.1.1/dns-query"
         set(value) = prefs.edit().putString(KEY_DOH_CUSTOM_URL, value).apply()
 
+    var gameAdBlockEnabled: Boolean
+        get() = prefs.getBoolean(KEY_GAME_ADBLOCK_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_GAME_ADBLOCK_ENABLED, value).apply()
+
+    var gameAdBlockProvider: String
+        get() = prefs.getString(KEY_GAME_ADBLOCK_PROVIDER, "AdGuard Reklam Engelleyici (Önerilen)") ?: "AdGuard Reklam Engelleyici (Önerilen)"
+        set(value) = prefs.edit().putString(KEY_GAME_ADBLOCK_PROVIDER, value).apply()
+
     var excludedApps: Set<String>
         get() = prefs.getStringSet(KEY_EXCLUDED_APPS, emptySet()) ?: emptySet()
         set(value) = prefs.edit().putStringSet(KEY_EXCLUDED_APPS, value).apply()
+
+    fun getActiveDnsServers(): List<String> {
+        if (gameAdBlockEnabled) {
+            val provider = com.antidpi.mobile.core.DnsOverHttpsResolver.ADBLOCK_PROVIDERS
+                .firstOrNull { it.name == gameAdBlockProvider }
+                ?: com.antidpi.mobile.core.DnsOverHttpsResolver.ADBLOCK_PROVIDERS.first()
+            return listOf(provider.primaryIp, provider.secondaryIp)
+        }
+
+        if (dohEnabled) {
+            val provider = com.antidpi.mobile.core.DnsOverHttpsResolver.PROVIDERS
+                .firstOrNull { it.name == dohProvider }
+            if (provider != null && provider.bootstrapIps.isNotEmpty()) {
+                return provider.bootstrapIps
+            }
+        }
+
+        return listOf("1.1.1.1", "8.8.8.8")
+    }
 
     fun getActiveProfile(): DpiProfile {
         val id = selectedProfileId
@@ -71,6 +98,8 @@ class PreferencesManager(context: Context) {
         private const val KEY_DOH_ENABLED = "key_doh_enabled"
         private const val KEY_DOH_PROVIDER = "key_doh_provider"
         private const val KEY_DOH_CUSTOM_URL = "key_doh_custom_url"
+        private const val KEY_GAME_ADBLOCK_ENABLED = "key_game_adblock_enabled"
+        private const val KEY_GAME_ADBLOCK_PROVIDER = "key_game_adblock_provider"
         private const val KEY_EXCLUDED_APPS = "key_excluded_apps"
     }
 }

@@ -29,11 +29,11 @@ Bu dosya, **AntiDPI Mobile** projesinin mevcut mimarisini, teknik kararlarını,
 * **`AppUpdater.kt`:** Uygulama açılışında GitHub Releases API'sini sorgular. Yeni sürüm geldiğinde kullanıcıya indirme ve tek tıkla kurma diyalogu gösterir (OTA Self-Updater).
 * **`profiles.json` (Remote Config):** GitHub'daki `profiles.json` dosyasını uzaktan okur. Operatörler filtre değiştirdiğinde uygulama güncellemesi gerekmeksizin yeni profiller kullanıcılara ulaşır.
 * **Modern Arayüz (Jetpack Compose Material 3):**
-  - *Ana Sayfa:* Parlayan animasyonlu güç butonu, canlı download/upload hız sayaçları ve anlık ping.
+  - *Ana Sayfa:* Parlayan animasyonlu güç butonu, tek dokunuşla **Oyun İçi Reklam Engelleyici (AdBlock)** anahtarı, canlı download/upload hız sayaçları ve anlık ping.
   - *Profiller:* Türk Telekom, Superonline, Turkcell, Vodafone için optimize şablonlar ve özel ayarlar.
-  - *Şifreli DNS (DoH):* Cloudflare, Google, Quad9, AdGuard şifreli DNS.
+  - *Şifreli DNS & Oyun Reklam Engelleyici:* Mobil oyunlardaki video/afiş reklamları engelleyen Anycast AdBlock DNS (AdGuard, AdGuard Family, Mullvad, Control D) veya Cloudflare/Google standart DoH.
   - *Uygulama Ayracı (Per-App):* Banka ve yerel uygulamaları tünelden hariç tutma (Split Tunneling).
-  - *Günlükler (Logs):* Canlı terminal akışı ve tek dokunuşla Discord / Roblox erişim testi.
+  - *Günlükler & Tanı (Logs):* Canlı terminal akışı, tek dokunuşla Discord / Web erişim testi ve popüler oyun reklam ağları (UnityAds, AdMob, AppLovin) için anlık **Oyun Reklam Engelleme Testi**.
 
 ---
 
