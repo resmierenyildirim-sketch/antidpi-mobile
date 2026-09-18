@@ -8,7 +8,7 @@
     <meta name="keywords" content="goodbyedpi android, goodbyedpi mobil, android goodbyedpi apk, discord açma mobil, roblox açma mobil, vpnsiz discord android, turk telekom discord açma, superonline discord açma, android dpi bypass, antidpi, byedpi android, sansürsüz internet android, dns over https türkiye, roblox mobil engeli kaldırma, turkcell dpi atlatma, zapret android, discord sansür atlatma android, hız kayıpsız vpn alternatif">
     <meta name="author" content="Eren Yıldırım">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="theme-color" content="#07090E">
+    <meta name="theme-color" content="#09090B">
     <link rel="canonical" href="https://resmierenyildirim-sketch.github.io/antidpi-mobile/">
     <meta name="google-site-verification" content="googlecb95e4c7f3e5f347">
 
@@ -51,8 +51,8 @@
           },
           "description": "Android için GoodbyeDPI alternatifi: Uzak VPN sunucusu olmadan, sıfır hız kaybı ve sıfır ping artışı ile çalışan yerel DPI sansür atlatıcı.",
           "url": "https://resmierenyildirim-sketch.github.io/antidpi-mobile/",
-          "downloadUrl": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.1.1/AntiDPI-Mobile.apk",
-          "softwareVersion": "1.1.1",
+          "downloadUrl": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.1/AntiDPI-Mobile.apk",
+          "softwareVersion": "1.2.1",
           "fileSize": "18MB",
           "author": {
             "@type": "Person",
@@ -61,7 +61,7 @@
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
-            "ratingCount": "142",
+            "ratingCount": "168",
             "bestRating": "5"
           }
         },
@@ -97,7 +97,7 @@
       ]
     }
     </script>
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -107,19 +107,20 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0fdf4',
-                            500: '#10b981',
+                            500: '#10B981',
                             600: '#059669',
                         },
-                        dark: {
-                            900: '#07090E',
-                            800: '#0D111A',
-                            700: '#151C2C',
-                            600: '#1F293D'
+                        obsidian: {
+                            950: '#09090B',
+                            900: '#121215',
+                            800: '#18181B',
+                            700: '#27272A',
+                            600: '#3F3F46',
                         }
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
@@ -127,269 +128,295 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #07090E;
-            color: #E2E8F0;
+            background-color: #09090B;
+            color: #FAFAFA;
         }
-        .glow-emerald {
-            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.35);
+        .border-hairline {
+            border-color: #27272A;
         }
-        .glow-cyan {
-            box-shadow: 0 0 60px -15px rgba(6, 182, 212, 0.4);
+        .card-bg {
+            background-color: #18181B;
         }
-        .glass-panel {
-            background: rgba(13, 17, 26, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .card-subtle {
+            background-color: #121215;
         }
-        .glass-card {
-            background: rgba(21, 28, 44, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+        .tactile-press:active {
+            transform: scale(0.97);
         }
-        .glass-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.15);
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 0.4; }
-            100% { transform: scale(0.95); opacity: 0.8; }
+        ::-webkit-scrollbar-track {
+            background: #09090B;
         }
-        .animate-ring {
-            animation: pulse-ring 3s infinite ease-in-out;
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
 
-    <!-- Background Gradients -->
-    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-tr from-cyan-600/20 via-emerald-600/20 to-transparent blur-[140px] rounded-full"></div>
-        <div class="absolute top-[60%] -left-40 w-[600px] h-[600px] bg-emerald-600/10 blur-[160px] rounded-full"></div>
-        <div class="absolute bottom-10 -right-40 w-[600px] h-[600px] bg-indigo-600/10 blur-[160px] rounded-full"></div>
-    </div>
-
-    <!-- Navigation -->
-    <header class="sticky top-0 z-50 glass-panel border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <img src="favicon.svg" alt="AntiDPI Logo" class="w-10 h-10 rounded-xl shadow-lg shadow-emerald-500/20">
-                <div>
-                    <span class="text-xl font-black tracking-tight text-white flex items-center gap-2">
-                        AntiDPI <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">Mobile</span>
-                    </span>
-                    <span class="text-xs text-slate-400 block -mt-1">GoodbyeDPI for Android</span>
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-obsidian-950/85 backdrop-blur-md border-b border-hairline">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3.5">
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-obsidian-800 border border-hairline p-1.5 flex items-center justify-center transition group-hover:border-zinc-500">
+                    <img src="favicon.svg" alt="AntiDPI Logo" class="w-full h-full">
                 </div>
-            </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-base font-bold tracking-tight text-white">AntiDPI</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-medium">v1.2.1</span>
+                    </div>
+                    <span class="text-xs text-zinc-400 block -mt-0.5">GoodbyeDPI for Android</span>
+                </div>
+            </a>
 
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#features" class="hover:text-emerald-400 transition">Özellikler</a>
-                <a href="#comparison" class="hover:text-emerald-400 transition">VPN vs AntiDPI</a>
-                <a href="#isps" class="hover:text-emerald-400 transition">Operatörler</a>
-                <a href="#faq" class="hover:text-emerald-400 transition">SSS</a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-300">
+                <a href="#demo" class="hover:text-white transition">Uygulama Mantığı</a>
+                <a href="#comparison" class="hover:text-white transition">VPN vs AntiDPI</a>
+                <a href="#features" class="hover:text-white transition">Özellikler</a>
+                <a href="#isps" class="hover:text-white transition">Operatörler</a>
+                <a href="#faq" class="hover:text-white transition">SSS</a>
             </nav>
 
-            <div class="flex items-center space-x-4">
-                <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 text-sm font-semibold transition">
-                    <i class="fa-brands fa-github text-lg"></i>
+            <div class="flex items-center space-x-3">
+                <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile" target="_blank" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-obsidian-800 hover:bg-zinc-800 text-zinc-200 border border-hairline text-xs font-semibold transition">
+                    <i class="fa-brands fa-github text-sm"></i>
                     <span id="star-count">GitHub</span>
                 </a>
-                <a href="#download" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold text-sm shadow-lg shadow-emerald-500/25 transition transform active:scale-95 flex items-center gap-2">
+                <a href="#download" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-950 font-bold text-xs transition tactile-press flex items-center gap-2">
                     <i class="fa-solid fa-download"></i>
-                    <span>İndir</span>
+                    <span>APK İndir</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <!-- Hero & Interactive App Preview Section -->
+    <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="demo">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <!-- Left Info -->
-            <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    Türkiye Operatörleri İçin Özel Optimize Edildi
+            
+            <!-- Left Information Column -->
+            <div class="lg:col-span-7 space-y-7 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-obsidian-800 border border-hairline text-zinc-300 text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    Sade & Minimalist Tasarım • Türkiye Operatörlerine Özel
                 </div>
 
-                <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
                     Sıfır Hız Kaybı.<br>
                     Sıfır Ping Artışı.<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-300">Özgür İnternet.</span>
+                    <span class="text-emerald-400">Özgür ve Hızlı İnternet.</span>
                 </h1>
 
-                <p class="text-lg sm:text-xl text-slate-300 font-normal max-w-2xl leading-relaxed">
-                    AntiDPI Mobile bir VPN <strong class="text-white font-semibold">değildir</strong>. Uzak sunucularla bağlantınızı yavaşlatmaz. Cihazınızda çalışan yerel DPI manipülasyon çekirdeği ile Discord, Roblox ve tüm sansürlü siteleri orijinal internet hızınızla açar.
+                <p class="text-base sm:text-lg text-zinc-400 font-normal max-w-xl leading-relaxed">
+                    AntiDPI Mobile bir VPN <strong class="text-zinc-200 font-semibold">değildir</strong>. Trafiğinizi yabancı sunuculara yönlendirip yavaşlatmaz. Cihazınızda çalışan yerel GoodbyeDPI C motoru ile paketleri parçalar ve Discord, Roblox gibi engelli servisleri doğrudan hat hızınızla açar.
                 </p>
 
-                <!-- Download & Actions -->
-                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start" id="download">
-                    <a id="btn-download" href="https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.1.1/AntiDPI-Mobile.apk" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-dark-900 font-extrabold text-base shadow-xl shadow-emerald-500/30 flex items-center justify-center gap-3 transition transform active:scale-95 group">
-                        <i class="fa-brands fa-android text-2xl group-hover:bounce transition"></i>
+                <!-- Action / Download Buttons -->
+                <div class="flex flex-col sm:flex-row items-center gap-3.5 justify-center lg:justify-start" id="download">
+                    <a id="btn-download" href="https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.1/AntiDPI-Mobile.apk" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-950 font-bold text-sm flex items-center justify-center gap-3 transition tactile-press">
+                        <i class="fa-brands fa-android text-xl"></i>
                         <div class="text-left">
-                            <div class="text-xs font-bold uppercase tracking-wider text-dark-900/70">Ücretsiz İndir</div>
-                            <div class="text-lg leading-tight">AntiDPI APK <span id="latest-ver" class="text-xs bg-dark-900/20 px-1.5 py-0.5 rounded ml-1">v1.1.1</span></div>
+                            <div class="text-[10px] uppercase font-extrabold tracking-wider opacity-80">Doğrudan İndir</div>
+                            <div class="text-base leading-tight font-black">AntiDPI APK <span id="latest-ver" class="text-xs bg-black/20 px-1.5 py-0.5 rounded font-mono ml-1">v1.2.1</span></div>
                         </div>
                     </a>
 
-                    <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile" target="_blank" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 font-semibold text-base flex items-center justify-center gap-3 transition">
-                        <i class="fa-solid fa-code text-emerald-400"></i>
-                        <span>Kaynak Kodları</span>
+                    <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile" target="_blank" class="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-obsidian-800 hover:bg-zinc-800 text-zinc-200 border border-hairline font-semibold text-sm flex items-center justify-center gap-2.5 transition">
+                        <i class="fa-solid fa-code text-zinc-400"></i>
+                        <span>Açık Kaynak Kod</span>
                     </a>
                 </div>
 
-                <!-- Small Specs -->
-                <div class="flex items-center gap-6 justify-center lg:justify-start text-xs text-slate-400 font-mono">
-                    <div class="flex items-center gap-2">
+                <!-- Feature Specs Pills -->
+                <div class="flex flex-wrap items-center gap-5 justify-center lg:justify-start text-xs text-zinc-400 font-mono">
+                    <div class="flex items-center gap-1.5">
                         <i class="fa-solid fa-check text-emerald-400"></i> Android 8.0+
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-check text-emerald-400"></i> ~18.4 MB
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-check text-emerald-400"></i> ~18 MB Hafif APK
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-rotate text-emerald-400"></i> Dahili Otomatik Güncelleme
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate text-emerald-400"></i> Dahili OTA Güncelleme
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-shield-halved text-emerald-400"></i> Reklam Engelleyici
+                    </div>
+                </div>
+
+                <!-- Direct Mobile Install Advice Banner -->
+                <div class="card-bg border border-hairline p-4 rounded-xl max-w-xl text-left hidden sm:flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+                        <i class="fa-solid fa-bolt text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-zinc-200">Tek Tıkla Linkten Kurulum Mantığı</div>
+                        <div class="text-xs text-zinc-400 mt-0.5 leading-relaxed">
+                            Google Play hesabına veya üçüncü parti mağazaya gerek yoktur. APK'yı doğrudan indirin, dokunup yükleyin. Uygulama açılışında yeni sürümleri otomatik denetler ve tek dokunuşla günceller.
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Interactive Phone Mockup & QR -->
-            <div class="lg:col-span-5 flex flex-col items-center justify-center relative">
-                <!-- Glowing Aura -->
-                <div class="absolute w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-ring pointer-events-none"></div>
-
-                <!-- Mockup Card -->
-                <div class="w-full max-w-sm glass-panel p-6 rounded-[2.5rem] border border-white/10 shadow-2xl relative">
-                    <!-- Top Phone Speaker -->
-                    <div class="w-24 h-4 bg-slate-800 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <div class="w-3 h-3 rounded-full bg-slate-900"></div>
+            <!-- Right Column: Interactive Phone Mockup (Live App Logic) -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                <!-- Phone Frame -->
+                <div class="w-full max-w-[340px] card-bg p-5 rounded-[2.5rem] border border-hairline shadow-2xl relative">
+                    <!-- Top Speaker & Camera -->
+                    <div class="w-20 h-3.5 bg-obsidian-950 rounded-full mx-auto mb-5 flex items-center justify-center">
+                        <div class="w-2 h-2 rounded-full bg-zinc-800"></div>
                     </div>
 
-                    <!-- App UI Representation -->
-                    <div class="space-y-6">
-                        <!-- Status Header -->
-                        <div class="flex justify-between items-center bg-white/5 p-3 rounded-2xl border border-white/5">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span class="text-xs font-bold text-white uppercase tracking-wider">DPI Koruması Aktif</span>
-                            </div>
-                            <span class="text-xs font-mono text-emerald-400">100.0% Hız</span>
-                        </div>
-
-                        <!-- Big Power Button Mockup -->
-                        <div class="flex flex-col items-center justify-center py-6">
-                            <div class="w-36 h-36 rounded-full bg-gradient-to-b from-emerald-500/20 to-cyan-500/10 border-2 border-emerald-500/40 flex items-center justify-center glow-emerald cursor-pointer transition transform hover:scale-105 active:scale-95">
-                                <div class="w-28 h-28 rounded-full bg-dark-800 flex flex-col items-center justify-center border border-emerald-500/30">
-                                    <i class="fa-solid fa-power-off text-4xl text-emerald-400"></i>
-                                    <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 mt-2">BAĞLI</span>
+                    <!-- App Screen Content -->
+                    <div class="space-y-4 select-none">
+                        
+                        <!-- Top Bar inside App -->
+                        <div class="flex justify-between items-center pb-2 border-b border-hairline/60">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg card-subtle border border-hairline p-1 flex items-center justify-center">
+                                    <img src="favicon.svg" alt="App Logo" class="w-full h-full">
                                 </div>
+                                <span class="text-sm font-bold text-white tracking-tight">AntiDPI</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full card-subtle border border-hairline">
+                                <span id="mockup-status-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span id="mockup-status-pill" class="text-[11px] font-medium text-emerald-400">Bağlı</span>
                             </div>
                         </div>
 
-                        <!-- Operator & Stats -->
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="glass-card p-3 rounded-xl text-center">
-                                <span class="text-[10px] uppercase font-semibold text-slate-400 block">Seçili Profil</span>
-                                <span class="text-xs font-bold text-cyan-400">Türk Telekom / SO</span>
+                        <!-- Minimalist Power Button Area -->
+                        <div class="flex flex-col items-center justify-center py-4">
+                            <!-- Outer guide ring -->
+                            <div class="w-32 h-32 rounded-full border border-hairline/70 flex items-center justify-center">
+                                <!-- Interactive Button -->
+                                <button id="mockup-power-btn" onclick="toggleMockupPower()" title="Durumu değiştirmek için dokunun" class="w-24 h-24 rounded-full bg-emerald-500 border-2 border-emerald-400 text-obsidian-950 flex flex-col items-center justify-center transition-all duration-300 tactile-press shadow-lg shadow-emerald-500/20 focus:outline-none">
+                                    <i id="mockup-power-icon" class="fa-solid fa-power-off text-2xl"></i>
+                                </button>
                             </div>
-                            <div class="glass-card p-3 rounded-xl text-center">
-                                <span class="text-[10px] uppercase font-semibold text-slate-400 block">Şifreli DNS</span>
-                                <span class="text-xs font-bold text-emerald-400">Cloudflare DoH</span>
+                            
+                            <div id="mockup-status-text" class="text-sm font-semibold text-white mt-3 transition-colors">
+                                DPI Koruması Etkin
+                            </div>
+                            <div id="mockup-status-sub" class="text-[11px] text-zinc-400 mt-0.5 transition-colors">
+                                Yerel bypass devrede • Sıfır hız kaybı
                             </div>
                         </div>
 
-                        <!-- Live Speed Counters -->
-                        <div class="bg-dark-900/80 p-3 rounded-xl border border-white/5 flex justify-around text-center">
+                        <!-- Active Profile Card -->
+                        <div class="card-subtle border border-hairline p-3 rounded-xl flex justify-between items-center">
                             <div>
-                                <span class="text-[10px] text-slate-400 block">↓ İndirme</span>
-                                <span class="text-sm font-mono font-bold text-white">94.8 <span class="text-xs text-slate-400 font-normal">Mbps</span></span>
+                                <span class="text-[10px] text-zinc-400 uppercase font-mono block">Profil</span>
+                                <span class="text-xs font-semibold text-zinc-200">Türk Telekom & Superonline</span>
                             </div>
-                            <div class="w-px bg-white/10"></div>
+                            <i class="fa-solid fa-chevron-right text-zinc-500 text-xs"></i>
+                        </div>
+
+                        <!-- Minimalist AdBlocker Switch Card -->
+                        <div class="card-subtle border border-hairline p-3 rounded-xl flex justify-between items-center">
                             <div>
-                                <span class="text-[10px] text-slate-400 block">↑ Yükleme</span>
-                                <span class="text-sm font-mono font-bold text-white">22.4 <span class="text-xs text-slate-400 font-normal">Mbps</span></span>
+                                <span class="text-xs font-semibold text-zinc-200 block">Reklam Engelleme</span>
+                                <span id="mockup-adblock-status" class="text-[10px] text-emerald-400">Oyun ve sitelerdeki reklamlar engelleniyor</span>
                             </div>
-                            <div class="w-px bg-white/10"></div>
-                            <div>
-                                <span class="text-[10px] text-slate-400 block">⚡ Ping</span>
-                                <span class="text-sm font-mono font-bold text-emerald-400">7 <span class="text-xs text-slate-400 font-normal">ms</span></span>
+                            <!-- Switch -->
+                            <div id="mockup-adblock-switch" onclick="toggleMockupAdBlock()" class="w-9 h-5 rounded-full bg-emerald-500 p-0.5 cursor-pointer transition-colors duration-200 flex items-center">
+                                <div id="mockup-adblock-thumb" class="w-4 h-4 rounded-full bg-white transition-transform duration-200 translate-x-4"></div>
                             </div>
                         </div>
+
+                        <!-- Speed & Metric Counters -->
+                        <div id="mockup-speed-stats" class="card-subtle border border-hairline p-2.5 rounded-xl flex justify-around text-center transition-opacity duration-300">
+                            <div>
+                                <span class="text-[10px] text-zinc-400 block font-mono">↓ İndirme</span>
+                                <span class="text-xs font-mono font-bold text-white">96.4 <span class="text-[9px] text-zinc-400 font-normal">Mbps</span></span>
+                            </div>
+                            <div class="w-px bg-hairline"></div>
+                            <div>
+                                <span class="text-[10px] text-zinc-400 block font-mono">↑ Yükleme</span>
+                                <span class="text-xs font-mono font-bold text-white">24.2 <span class="text-[9px] text-zinc-400 font-normal">Mbps</span></span>
+                            </div>
+                            <div class="w-px bg-hairline"></div>
+                            <div>
+                                <span class="text-[10px] text-zinc-400 block font-mono">⚡ Ping</span>
+                                <span class="text-xs font-mono font-bold text-emerald-400">6 <span class="text-[9px] text-zinc-400 font-normal">ms</span></span>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Bottom QR Code for Desktop Visitors -->
-                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-3">
-                        <div class="bg-white p-1.5 rounded-lg shrink-0">
-                            <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.1.1/AntiDPI-Mobile.apk" alt="AntiDPI APK QR Kodu" class="w-14 h-14">
+                    <div class="mt-4 pt-3 border-t border-hairline flex items-center gap-3">
+                        <div class="bg-white p-1 rounded-lg shrink-0">
+                            <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.1/AntiDPI-Mobile.apk" alt="AntiDPI APK QR Kodu" class="w-12 h-12">
                         </div>
-                        <div class="text-xs text-slate-300">
-                            <strong class="text-white block font-semibold">Telefondan mı bakıyorsun?</strong>
-                            Kameranı QR koda tutarak APK'yı anında indir.
+                        <div class="text-[11px] text-zinc-300 leading-tight">
+                            <strong class="text-white block font-semibold mb-0.5">Telefondan Tara & Yükle</strong>
+                            Kameranı QR koda tutarak doğrudan telefonuna indir.
                         </div>
                     </div>
                 </div>
-            </div>
-    </section>
 
-    <!-- Banner Visual Showcase -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative">
-        <div class="glass-panel p-2 sm:p-3 rounded-3xl border border-emerald-500/20 shadow-2xl overflow-hidden group">
-            <img src="og-banner.jpg" alt="AntiDPI Mobile - Android GoodbyeDPI ve Şifreli DNS Koruması" class="w-full h-auto rounded-2xl object-cover transform group-hover:scale-[1.01] transition duration-500">
+                <div class="text-[11px] text-zinc-400 mt-2 text-center">
+                    <i class="fa-solid fa-hand-pointer text-emerald-400 mr-1"></i> Önizlemedeki güç butonuna dokunup test edebilirsiniz
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Comparison Section -->
-    <section id="comparison" class="py-20 bg-dark-800/60 border-y border-white/5">
+    <section id="comparison" class="py-16 bg-obsidian-900 border-y border-hairline">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs uppercase font-bold text-emerald-400 tracking-widest block mb-2">Farkı Hissedin</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white">Sıradan VPN'ler vs AntiDPI Mobile</h2>
-                <p class="text-slate-400 mt-4 text-base">
-                    Neden uzak sunuculu hantal VPN'ler yerine cihaz içi yerel DPI atlatma kullanmalısınız?
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs uppercase font-mono font-semibold text-emerald-400 tracking-wider block mb-1.5">Karşılaştırma</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Sıradan VPN vs AntiDPI Mobile</h2>
+                <p class="text-zinc-400 mt-2 text-sm">
+                    Neden uzak sunuculu hantal VPN'ler yerine cihaz içi yerel DPI manipülasyonu kullanmalısınız?
                 </p>
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse glass-panel rounded-2xl overflow-hidden shadow-xl">
+                <table class="w-full text-left border-collapse card-bg rounded-xl border border-hairline overflow-hidden text-sm">
                     <thead>
-                        <tr class="border-b border-white/10 bg-white/5 text-xs uppercase tracking-wider text-slate-400">
-                            <th class="p-5">Kriter</th>
-                            <th class="p-5 text-slate-300">Sıradan VPN (Nord, Proton vb.)</th>
-                            <th class="p-5 text-emerald-400 font-bold bg-emerald-500/10">AntiDPI Mobile</th>
+                        <tr class="border-b border-hairline bg-obsidian-950 text-xs uppercase tracking-wider text-zinc-400">
+                            <th class="p-4 font-semibold">Özellik</th>
+                            <th class="p-4 font-semibold text-zinc-300">Sıradan VPN (Nord, Proton vb.)</th>
+                            <th class="p-4 font-semibold text-emerald-400 bg-emerald-500/5">AntiDPI Mobile</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-white/5 text-sm">
+                    <tbody class="divide-y divide-hairline">
                         <tr>
-                            <td class="p-5 font-semibold text-white">İnternet Hızı</td>
-                            <td class="p-5 text-rose-400"><i class="fa-solid fa-xmark mr-2"></i> %50 - %80 Düşüş (Hızınız kısıtlanır)</td>
-                            <td class="p-5 text-emerald-400 font-bold bg-emerald-500/5"><i class="fa-solid fa-check mr-2"></i> Sıfır Hız Kaybı (100 Mbps aynen kalır)</td>
+                            <td class="p-4 font-medium text-white">İnternet Hızı</td>
+                            <td class="p-4 text-rose-400"><i class="fa-solid fa-xmark mr-1.5"></i> %50 - %80 Hız Kaybı</td>
+                            <td class="p-4 text-emerald-400 font-semibold bg-emerald-500/5"><i class="fa-solid fa-check mr-1.5"></i> Sıfır Hız Kaybı (100 Mbps aynen kalır)</td>
                         </tr>
                         <tr>
-                            <td class="p-5 font-semibold text-white">Oyunlarda Ping & Gecikme</td>
-                            <td class="p-5 text-rose-400"><i class="fa-solid fa-xmark mr-2"></i> +100ms - 250ms (Oyun oynatmaz)</td>
-                            <td class="p-5 text-emerald-400 font-bold bg-emerald-500/5"><i class="fa-solid fa-check mr-2"></i> 0ms Artış (Doğrudan ISP pinginiz)</td>
+                            <td class="p-4 font-medium text-white">Oyunlarda Ping & Gecikme</td>
+                            <td class="p-4 text-rose-400"><i class="fa-solid fa-xmark mr-1.5"></i> +80ms - 200ms Ekstra Gecikme</td>
+                            <td class="p-4 text-emerald-400 font-semibold bg-emerald-500/5"><i class="fa-solid fa-check mr-1.5"></i> 0ms Ekstra Gecikme (Doğrudan hat pingi)</td>
                         </tr>
                         <tr>
-                            <td class="p-5 font-semibold text-white">Veri Gizliliği</td>
-                            <td class="p-5 text-amber-300"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Tüm trafiğiniz yabancı şirketin sunucusundan geçer</td>
-                            <td class="p-5 text-emerald-400 font-bold bg-emerald-500/5"><i class="fa-solid fa-check mr-2"></i> Trafik 100% cihazda kalır, sunucu yoktur</td>
+                            <td class="p-4 font-medium text-white">Veri Gizliliği</td>
+                            <td class="p-4 text-zinc-400"><i class="fa-solid fa-triangle-exclamation mr-1.5 text-amber-400"></i> Trafik yabancı şirket sunucusundan geçer</td>
+                            <td class="p-4 text-emerald-400 font-semibold bg-emerald-500/5"><i class="fa-solid fa-check mr-1.5"></i> Trafik %100 cihazda kalır, sunucu yoktur</td>
                         </tr>
                         <tr>
-                            <td class="p-5 font-semibold text-white">Fiyat & Üyelik</td>
-                            <td class="p-5 text-slate-300">Aylık yüksek döviz ücretleri veya reklamlar</td>
-                            <td class="p-5 text-emerald-400 font-bold bg-emerald-500/5"><i class="fa-solid fa-check mr-2"></i> %100 Ücretsiz & Reklamsız & Sınırsız</td>
+                            <td class="p-4 font-medium text-white">Fiyat & Üyelik</td>
+                            <td class="p-4 text-zinc-400">Aylık döviz ücreti veya zorunlu reklamlar</td>
+                            <td class="p-4 text-emerald-400 font-semibold bg-emerald-500/5"><i class="fa-solid fa-check mr-1.5"></i> %100 Ücretsiz, Reklamsız, Açık Kaynak</td>
                         </tr>
                         <tr>
-                            <td class="p-5 font-semibold text-white">Engellenme Riski</td>
-                            <td class="p-5 text-rose-400">VPN sunucu IP'leri BTK tarafından kolayca bloklanır</td>
-                            <td class="p-5 text-emerald-400 font-bold bg-emerald-500/5"><i class="fa-solid fa-check mr-2"></i> Sunucusuz çalıştığı için IP bloğu uygulanamaz</td>
+                            <td class="p-4 font-medium text-white">Engellenme / Blokaj</td>
+                            <td class="p-4 text-rose-400">Sunucu IP adresleri operatörlerce kolayca bloklanır</td>
+                            <td class="p-4 text-emerald-400 font-semibold bg-emerald-500/5"><i class="fa-solid fa-check mr-1.5"></i> Sunucusuz çalıştığı için IP bloğu uygulanamaz</td>
                         </tr>
                     </tbody>
                 </table>
@@ -398,201 +425,252 @@
     </section>
 
     <!-- Features Grid -->
-    <section id="features" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="text-xs uppercase font-bold text-cyan-400 tracking-widest block mb-2">Güçlü Yetenekler</span>
-            <h2 class="text-3xl sm:text-4xl font-black text-white">Gelişmiş Ağ & Sansür Atlatma Özellikleri</h2>
+    <section id="features" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs uppercase font-mono font-semibold text-emerald-400 tracking-wider block mb-1.5">Gelişmiş Çekirdek</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white">Güçlü Sansür Atlatma & Ağ Yetenekleri</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Feature 1 -->
+            <div class="card-bg p-5 rounded-xl border border-hairline space-y-3 hover:border-zinc-500 transition">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                     <i class="fa-solid fa-microchip"></i>
                 </div>
-                <h3 class="text-lg font-bold text-white">Ciadpi (ByeDPI) C Çekirdeği</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Android NDK ile C dilinde derlenmiş resmi ByeDPI motoru; TLS SNI paketlerini bayt seviyesinde parçalar, sırasız gönderir (disorder) ve DPI durum makinelerini aldatır.
+                <h3 class="text-base font-bold text-white">Ciadpi (ByeDPI) C Motoru</h3>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Android NDK ile C dilinde derlenmiş resmi GoodbyeDPI/ByeDPI çekirdeği; TLS SNI paketlerini bayt seviyesinde parçalar, sırasız yollar ve sansür makinelerini aldatır.
                 </p>
             </div>
 
-            <!-- Card 2 -->
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl">
+            <!-- Feature 2 -->
+            <div class="card-bg p-5 rounded-xl border border-hairline space-y-3 hover:border-zinc-500 transition">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                     <i class="fa-solid fa-tower-broadcast"></i>
                 </div>
-                <h3 class="text-lg font-bold text-white">Türkiye Operatör Optimizasyonu</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Türk Telekom, Turkcell, Vodafone ve Superonline DPI donanımlarının paket filtreleme modelleri incelenerek her biri için özel ayarlar oluşturuldu.
+                <h3 class="text-base font-bold text-white">Türkiye Operatör Profilleri</h3>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Türk Telekom, Turkcell, Vodafone ve Superonline DPI donanımlarının paket filtreleme modelleri analiz edilerek her birine özel hazır profiller entegre edildi.
                 </p>
             </div>
 
-            <!-- Card 3: Game & Web AdBlocker -->
-            <div class="glass-card p-6 rounded-2xl space-y-4 border border-emerald-500/30 bg-emerald-950/10">
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+            <!-- Feature 3 -->
+            <div class="card-bg p-5 rounded-xl border border-hairline space-y-3 hover:border-zinc-500 transition">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
-                <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-bold text-white">Oyun & Web Reklam Engelleyici</h3>
-                    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">YENİ</span>
-                </div>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Mobil oyunlardaki (Unity, AdMob, AppLovin) video/afiş reklamlarını ve web sitelerindeki pop-up/banner reklamlarını DNS seviyesinde sıfır hız ve sıfır ping kaybıyla bloke eder.
+                <h3 class="text-base font-bold text-white">Oyun & Web Reklam Engelleyici</h3>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Mobil oyun içi video/afiş reklamları (Unity, AdMob, AppLovin) ve web pop-up'larını DNS seviyesinde sıfır hız ve sıfır gecikme kaybıyla bloke eder.
                 </p>
             </div>
 
-            <!-- Card 4 -->
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl">
+            <!-- Feature 4 -->
+            <div class="card-bg p-5 rounded-xl border border-hairline space-y-3 hover:border-zinc-500 transition">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                     <i class="fa-solid fa-arrows-rotate"></i>
                 </div>
-                <h3 class="text-lg font-bold text-white">Dahili OTA Kendi Kendine Güncelleme</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Play Store olmadan da yeni güncellemeler çıktığında uygulama sizi uyarır ve tek dokunuşla son sürüme sorunsuz şekilde yükseltir.
+                <h3 class="text-base font-bold text-white">Dahili OTA Otomatik Güncelleme</h3>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Play Store olmadan da yeni güncellemeler yayınlandığında uygulama içinde doğrudan indirme ekranı açılır ve tek dokunuşla son sürüme sorunsuz geçer.
                 </p>
             </div>
 
-            <!-- Card 4 -->
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl">
+            <!-- Feature 5 -->
+            <div class="card-bg p-5 rounded-xl border border-hairline space-y-3 hover:border-zinc-500 transition">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <h3 class="text-lg font-bold text-white">Şifreli DNS (DoH) Entegrasyonu</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Cloudflare (1.1.1.1), Google (8.8.8.8) ve Quad9 DNS-over-HTTPS istemcisi ile ISS düzeyindeki DNS zehirlemeleri ve sahte IP yönlendirmeleri tarihe karışır.
+                <h3 class="text-base font-bold text-white">Şifreli DNS (DoH) Entegrasyonu</h3>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Cloudflare (1.1.1.1), Google (8.8.8.8) ve Quad9 DNS-over-HTTPS istemcisi ile ISS düzeyindeki DNS zehirlemeleri ve sahte mahkeme kararı yönlendirmeleri tarihe karışır.
                 </p>
             </div>
 
-            <!-- Card 5 -->
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl">
-                    <i class="fa-solid fa-shield-virus"></i>
+            <!-- Feature 6 -->
+            <div class="card-bg p-5 rounded-xl border border-hairline space-y-3 hover:border-zinc-500 transition">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
+                    <i class="fa-solid fa-layer-group"></i>
                 </div>
-                <h3 class="text-lg font-bold text-white">Banka & Uygulama Ayırıcı (Bypass)</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Banka uygulamaları, e-Devlet veya oyunları tünelden hariç tutarak yerel ağ üzerinden kesintisiz ve doğrudan çalışmasını sağlayabilirsiniz.
-                </p>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl">
-                    <i class="fa-solid fa-cloud-bolt"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">Uzaktan Dinamik Kural Yönetimi</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Operatörler yeni bir sansür algoritması getirse bile GitHub üzerinden yayınlanan dinamik kurallarla uygulama yeniden derlenmeden anında güncellenir.
+                <h3 class="text-base font-bold text-white">Banka & Uygulama Muafiyeti (Bypass)</h3>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Banka uygulamaları veya e-Devlet gibi hassas servisleri tünelden hariç tutarak yerel ağ üzerinden hiçbir güvenlik uyarısı almadan çalıştırmaya devam edebilirsiniz.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Supported ISPs -->
-    <section id="isps" class="py-16 bg-dark-800/40 border-y border-white/5">
+    <section id="isps" class="py-12 bg-obsidian-900 border-y border-hairline">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-sm uppercase font-bold text-slate-400 tracking-widest mb-8">
-                Tüm Türkiye Ev ve Mobil İnternet Sağlayıcılarında Test Edildi
+            <h3 class="text-xs uppercase font-mono font-semibold text-zinc-400 tracking-wider mb-6">
+                Tüm Türkiye Ev ve Mobil Sağlayıcılarında Test Edildi
             </h3>
-            <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-80">
-                <span class="text-xl sm:text-2xl font-black text-slate-300 tracking-wider">TÜRK TELEKOM</span>
-                <span class="text-xl sm:text-2xl font-black text-slate-300 tracking-wider">TURKCELL SUPERONLINE</span>
-                <span class="text-xl sm:text-2xl font-black text-slate-300 tracking-wider">VODAFONE</span>
-                <span class="text-xl sm:text-2xl font-black text-slate-300 tracking-wider">TÜRKSAT KABLONET</span>
-                <span class="text-xl sm:text-2xl font-black text-slate-300 tracking-wider">TURKNET</span>
+            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-70">
+                <span class="text-lg sm:text-xl font-bold text-zinc-300 tracking-wide">TÜRK TELEKOM</span>
+                <span class="text-lg sm:text-xl font-bold text-zinc-300 tracking-wide">TURKCELL SUPERONLINE</span>
+                <span class="text-lg sm:text-xl font-bold text-zinc-300 tracking-wide">VODAFONE</span>
+                <span class="text-lg sm:text-xl font-bold text-zinc-300 tracking-wide">TÜRKSAT KABLONET</span>
+                <span class="text-lg sm:text-xl font-bold text-zinc-300 tracking-wide">TURKNET</span>
             </div>
         </div>
     </section>
 
     <!-- FAQ Accordion -->
-    <section id="faq" class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <span class="text-xs uppercase font-bold text-emerald-400 tracking-widest block mb-2">Aklınıza Takılanlar</span>
-            <h2 class="text-3xl sm:text-4xl font-black text-white">Sıkça Sorulan Sorular</h2>
+    <section id="faq" class="py-16 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-xs uppercase font-mono font-semibold text-emerald-400 tracking-wider block mb-1.5">Sorular & Cevaplar</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white">Sıkça Sorulan Sorular</h2>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-3">
             <!-- FAQ 1 -->
-            <details class="glass-panel p-5 rounded-2xl group cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-white text-base list-none">
+            <details class="card-bg p-4 rounded-xl border border-hairline group cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-white text-sm list-none">
                     <span>AntiDPI Mobile bir VPN mi? İnternetimi yavaşlatır mı?</span>
-                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition"></i>
+                    <i class="fa-solid fa-chevron-down text-xs text-zinc-500 group-open:rotate-180 transition-transform"></i>
                 </summary>
-                <p class="mt-4 text-slate-300 text-sm leading-relaxed">
-                    Hayır! Sıradan VPN'ler trafiğinizi Almanya, Amerika gibi uzak sunuculara yönlendirdiği için internet hızınızı %80 düşürür ve pinginizi uçurur. AntiDPI Mobile ise cihaz içinde yerel bir döngü kurar; paket başlıklarını DPI sansür filtrelerinin tanıyamayacağı şekilde manipüle edip doğrudan hedefe gönderir. Hızınız ve pinginiz %100 orijinal kalır.
+                <p class="mt-3 text-zinc-400 text-xs leading-relaxed">
+                    Hayır! Sıradan VPN'ler trafiğinizi Almanya, Amerika gibi uzak sunuculara yönlendirdiği için hızınızı %80 düşürür ve pinginizi uçurur. AntiDPI Mobile ise cihaz içinde yerel döngü kurar; paket başlıklarını DPI sansür filtrelerinin tanıyamayacağı şekilde manipüle edip doğrudan hedefe gönderir. Hızınız ve pinginiz %100 orijinal kalır.
                 </p>
             </details>
 
             <!-- FAQ 2 -->
-            <details class="glass-panel p-5 rounded-2xl group cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-white text-base list-none">
+            <details class="card-bg p-4 rounded-xl border border-hairline group cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-white text-sm list-none">
                     <span>Discord, Roblox veya Instagram gibi platformlarda çalışır mı?</span>
-                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition"></i>
+                    <i class="fa-solid fa-chevron-down text-xs text-zinc-500 group-open:rotate-180 transition-transform"></i>
                 </summary>
-                <p class="mt-4 text-slate-300 text-sm leading-relaxed">
-                    Evet. Türkiye'de uygulanan DPI tabanlı SNI engellemelerinin tamamını atlatmak üzere tasarlanmıştır. Discord ses kanalları, Roblox sunucuları ve tüm engelli web sitelerine kesintisiz erişebilirsiniz.
+                <p class="mt-3 text-zinc-400 text-xs leading-relaxed">
+                    Evet. Türkiye'de uygulanan DPI tabanlı SNI engellemelerinin tamamını atlatmak üzere tasarlanmıştır. Discord ses kanalları, Roblox sunucuları ve tüm engelli web sitelerine sıfır takılmayla erişebilirsiniz.
                 </p>
             </details>
 
             <!-- FAQ 3 -->
-            <details class="glass-panel p-5 rounded-2xl group cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-white text-base list-none">
+            <details class="card-bg p-4 rounded-xl border border-hairline group cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-white text-sm list-none">
                     <span>Banka veya e-Devlet işlemlerimde güvenlik sorunu olur mu?</span>
-                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition"></i>
+                    <i class="fa-solid fa-chevron-down text-xs text-zinc-500 group-open:rotate-180 transition-transform"></i>
                 </summary>
-                <p class="mt-4 text-slate-300 text-sm leading-relaxed">
-                    Uygulama hiçbir verinizi kaydetmez veya uzak bir yere aktarmaz. Ancak bankaların olağan dışı ağ kontrollerine takılmamak isterseniz uygulama içindeki "Uygulamalar" ekranından bankalarınızı tek tıkla bypass (hariç tutulanlar) listesine alabilirsiniz.
+                <p class="mt-3 text-zinc-400 text-xs leading-relaxed">
+                    Uygulama hiçbir verinizi kaydetmez veya uzak sunucuya aktarmaz. Ancak bankaların olağan dışı ağ kontrollerine takılmamak isterseniz uygulama içindeki "Uygulamalar" ekranından bankalarınızı tek tıkla bypass (hariç tutulanlar) listesine alabilirsiniz.
                 </p>
             </details>
 
             <!-- FAQ 4 -->
-            <details class="glass-panel p-5 rounded-2xl group cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-white text-base list-none">
-                    <span>Pil tüketimi veya arka planda kapanma sorunu yaşar mıyım?</span>
-                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition"></i>
+            <details class="card-bg p-4 rounded-xl border border-hairline group cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-white text-sm list-none">
+                    <span>Pil tüketimi veya arka planda kapanma yaşar mıyım?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-zinc-500 group-open:rotate-180 transition-transform"></i>
                 </summary>
-                <p class="mt-4 text-slate-300 text-sm leading-relaxed">
+                <p class="mt-3 text-zinc-400 text-xs leading-relaxed">
                     Uygulamanın çekirdeği saf C dili ve lwIP mikro yığını ile yazıldığı için minimum CPU ve RAM harcar. Android'in pil optimizasyonundan muaf tutulduğunda arka planda asla kapanmadan gün boyu sorunsuz çalışır.
                 </p>
             </details>
 
             <!-- FAQ 5 -->
-            <details class="glass-panel p-5 rounded-2xl group cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-white text-base list-none">
+            <details class="card-bg p-4 rounded-xl border border-hairline group cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-white text-sm list-none">
                     <span>Uygulamayı nasıl kurar ve güncellerim?</span>
-                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition"></i>
+                    <i class="fa-solid fa-chevron-down text-xs text-zinc-500 group-open:rotate-180 transition-transform"></i>
                 </summary>
-                <p class="mt-4 text-slate-300 text-sm leading-relaxed">
-                    İndirdiğiniz APK dosyasına dokunup "Bilinmeyen kaynaklara izin ver" diyerek tek tıkla kurabilirsiniz. İleride yeni bir sürüm çıktığında uygulama açılışında otomatik bildirim alacak ve tek dokunuşla güncelleyebileceksiniz.
+                <p class="mt-3 text-zinc-400 text-xs leading-relaxed">
+                    İndirdiğiniz APK dosyasına dokunup "Bilinmeyen kaynaklara izin ver" diyerek kurabilirsiniz. İleride yeni bir sürüm çıktığında uygulama açılışında otomatik bildirim alacak ve tek dokunuşla güncelleyebileceksiniz.
                 </p>
             </details>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="mt-auto border-t border-white/5 bg-dark-900 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <footer class="mt-auto border-t border-hairline bg-obsidian-950 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-5">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                    <i class="fa-solid fa-shield-halved text-sm"></i>
+                <div class="w-7 h-7 rounded-lg card-bg border border-hairline p-1 flex items-center justify-center">
+                    <img src="favicon.svg" alt="AntiDPI Logo" class="w-full h-full">
                 </div>
-                <span class="text-sm font-bold text-white">AntiDPI Mobile</span>
-                <span class="text-xs text-slate-500">© 2026 Eren Yıldırım</span>
+                <span class="text-xs font-semibold text-zinc-300">AntiDPI Mobile • © 2026 Eren Yıldırım</span>
             </div>
 
-            <div class="flex items-center space-x-6 text-sm text-slate-400">
-                <a href="PRIVACY_POLICY.md" class="hover:text-emerald-400 transition">Gizlilik Politikası</a>
-                <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile" target="_blank" class="hover:text-emerald-400 transition">GitHub</a>
-                <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases" target="_blank" class="hover:text-emerald-400 transition">Sürümler</a>
+            <div class="flex items-center space-x-6 text-xs text-zinc-400">
+                <a href="PRIVACY_POLICY.md" class="hover:text-white transition">Gizlilik Politikası</a>
+                <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile" target="_blank" class="hover:text-white transition">GitHub Deposu</a>
+                <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases" target="_blank" class="hover:text-white transition">Sürümler</a>
             </div>
         </div>
     </footer>
 
-    <!-- Script to fetch latest release metadata & stars dynamically -->
+    <!-- Mobile Sticky Install Bar for Phone Visitors -->
+    <div class="fixed bottom-0 inset-x-0 z-40 p-3 bg-obsidian-950/95 backdrop-blur-lg border-t border-hairline sm:hidden flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+            <img src="favicon.svg" class="w-8 h-8 rounded-lg card-bg border border-hairline p-1" alt="Logo">
+            <div>
+                <div class="text-xs font-bold text-white">AntiDPI Mobile</div>
+                <div class="text-[10px] text-zinc-400">v1.2.1 • 18 MB • Ücretsiz</div>
+            </div>
+        </div>
+        <a href="https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.1/AntiDPI-Mobile.apk" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-950 font-bold text-xs flex items-center gap-1.5 transition tactile-press">
+            <i class="fa-solid fa-download"></i>
+            <span>APK İndir</span>
+        </a>
+    </div>
+
+    <!-- Script for Interactive Mockup & GitHub API -->
     <script>
+        let isConnected = true;
+        let adBlockActive = true;
+
+        function toggleMockupPower() {
+            isConnected = !isConnected;
+            const btn = document.getElementById('mockup-power-btn');
+            const statusText = document.getElementById('mockup-status-text');
+            const statusSub = document.getElementById('mockup-status-sub');
+            const statusPill = document.getElementById('mockup-status-pill');
+            const statusDot = document.getElementById('mockup-status-dot');
+            const speedStats = document.getElementById('mockup-speed-stats');
+
+            if (isConnected) {
+                btn.className = "w-24 h-24 rounded-full bg-emerald-500 border-2 border-emerald-400 text-obsidian-950 flex flex-col items-center justify-center transition-all duration-300 tactile-press shadow-lg shadow-emerald-500/20 focus:outline-none";
+                statusText.textContent = "DPI Koruması Etkin";
+                statusText.className = "text-sm font-semibold text-white mt-3 transition-colors";
+                statusSub.textContent = "Yerel bypass devrede • Sıfır hız kaybı";
+                statusPill.textContent = "Bağlı";
+                statusPill.className = "text-[11px] font-medium text-emerald-400";
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-400";
+                speedStats.style.opacity = '1';
+            } else {
+                btn.className = "w-24 h-24 rounded-full bg-obsidian-900 border-2 border-hairline text-zinc-400 flex flex-col items-center justify-center transition-all duration-300 tactile-press focus:outline-none";
+                statusText.textContent = "Koruma Devre Dışı";
+                statusText.className = "text-sm font-semibold text-zinc-400 mt-3 transition-colors";
+                statusSub.textContent = "Başlatmak için dokunun";
+                statusPill.textContent = "Kapalı";
+                statusPill.className = "text-[11px] font-medium text-zinc-400";
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-zinc-600";
+                speedStats.style.opacity = '0.4';
+            }
+        }
+
+        function toggleMockupAdBlock() {
+            adBlockActive = !adBlockActive;
+            const sw = document.getElementById('mockup-adblock-switch');
+            const thumb = document.getElementById('mockup-adblock-thumb');
+            const status = document.getElementById('mockup-adblock-status');
+
+            if (adBlockActive) {
+                sw.className = "w-9 h-5 rounded-full bg-emerald-500 p-0.5 cursor-pointer transition-colors duration-200 flex items-center";
+                thumb.className = "w-4 h-4 rounded-full bg-white transition-transform duration-200 translate-x-4";
+                status.textContent = "Oyun ve sitelerdeki reklamlar engelleniyor";
+                status.className = "text-[10px] text-emerald-400";
+            } else {
+                sw.className = "w-9 h-5 rounded-full bg-zinc-800 p-0.5 cursor-pointer transition-colors duration-200 flex items-center";
+                thumb.className = "w-4 h-4 rounded-full bg-zinc-400 transition-transform duration-200 translate-x-0";
+                status.textContent = "DNS seviyesinde reklam filtresi kapalı";
+                status.className = "text-[10px] text-zinc-500";
+            }
+        }
+
         async function fetchGitHubData() {
             try {
                 const repo = 'resmierenyildirim-sketch/antidpi-mobile';
-                // Fetch release
                 const relRes = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
                 if (relRes.ok) {
                     const data = await relRes.json();
@@ -604,12 +682,11 @@
                         if (apkAsset) {
                             const dlUrl = apkAsset.browser_download_url;
                             document.getElementById('btn-download').href = dlUrl;
-                            document.getElementById('qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(dlUrl)}`;
+                            document.getElementById('qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(dlUrl)}`;
                         }
                     }
                 }
 
-                // Fetch stars
                 const repoRes = await fetch(`https://api.github.com/repos/${repo}`);
                 if (repoRes.ok) {
                     const repoData = await repoRes.json();
@@ -618,7 +695,7 @@
                     }
                 }
             } catch (e) {
-                console.log('GitHub API fetch fallback to default:', e);
+                console.log('GitHub API fallback active');
             }
         }
         fetchGitHubData();
