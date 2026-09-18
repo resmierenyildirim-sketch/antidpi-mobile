@@ -77,8 +77,8 @@ fun ProfilesScreen(
                     .clip(RoundedCornerShape(16.dp))
                     .background(CardDark)
                     .border(
-                        width = 1.5.dp,
-                        color = if (isCustomSelected) CyanAccent else CardBorder,
+                        width = 1.dp,
+                        color = if (isCustomSelected) AccentGreen else CardBorder,
                         shape = RoundedCornerShape(16.dp)
                     )
                     .clickable {
@@ -106,14 +106,14 @@ fun ProfilesScreen(
                                     onProfileSelected(prefs.getActiveProfile())
                                 },
                                 colors = RadioButtonDefaults.colors(
-                                    selectedColor = CyanAccent,
+                                    selectedColor = AccentGreen,
                                     unselectedColor = TextMuted
                                 )
                             )
                             Column {
                                 Text(
                                     text = "Özel Mod (Gelişmiş)",
-                                    style = Typography.titleLarge.copy(fontSize = 16.sp),
+                                    style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
                                     color = TextPrimary
                                 )
                                 Text(
@@ -133,8 +133,8 @@ fun ProfilesScreen(
                         // Split Offset Slider
                         Text(
                             text = "SNI Parçalama Ofseti: ${customSplit.toInt()} Bayt",
-                            style = Typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                            color = CyanAccent
+                            style = Typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                            color = TextPrimary
                         )
                         Slider(
                             value = customSplit,
@@ -145,16 +145,16 @@ fun ProfilesScreen(
                             valueRange = 1f..10f,
                             steps = 8,
                             colors = SliderDefaults.colors(
-                                thumbColor = CyanAccent,
-                                activeTrackColor = CyanAccent
+                                thumbColor = AccentGreen,
+                                activeTrackColor = AccentGreen
                             )
                         )
 
                         // Fake TTL Slider
                         Text(
                             text = "Sahte Paket TTL (Hop Sınırı): ${customTtl.toInt()}",
-                            style = Typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                            color = CyanAccent
+                            style = Typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                            color = TextPrimary
                         )
                         Slider(
                             value = customTtl,
@@ -165,8 +165,8 @@ fun ProfilesScreen(
                             valueRange = 1f..15f,
                             steps = 13,
                             colors = SliderDefaults.colors(
-                                thumbColor = CyanAccent,
-                                activeTrackColor = CyanAccent
+                                thumbColor = AccentGreen,
+                                activeTrackColor = AccentGreen
                             )
                         )
 
@@ -183,7 +183,10 @@ fun ProfilesScreen(
                                     customDisorder = it
                                     prefs.customDisorder = it
                                 },
-                                colors = SwitchDefaults.colors(checkedThumbColor = CyanAccent)
+                                colors = SwitchDefaults.colors(
+                                    checkedThumbColor = Color.White,
+                                    checkedTrackColor = AccentGreen
+                                )
                             )
                         }
 
@@ -199,7 +202,10 @@ fun ProfilesScreen(
                                     customFakeData = it
                                     prefs.customFakeData = it
                                 },
-                                colors = SwitchDefaults.colors(checkedThumbColor = CyanAccent)
+                                colors = SwitchDefaults.colors(
+                                    checkedThumbColor = Color.White,
+                                    checkedTrackColor = AccentGreen
+                                )
                             )
                         }
                     }
@@ -221,8 +227,8 @@ fun ProfileItemCard(
             .clip(RoundedCornerShape(16.dp))
             .background(CardDark)
             .border(
-                width = 1.5.dp,
-                color = if (isSelected) CyanAccent else CardBorder,
+                width = 1.dp,
+                color = if (isSelected) AccentGreen else CardBorder,
                 shape = RoundedCornerShape(16.dp)
             )
             .clickable { onClick() }
@@ -242,14 +248,14 @@ fun ProfileItemCard(
                     selected = isSelected,
                     onClick = onClick,
                     colors = RadioButtonDefaults.colors(
-                        selectedColor = CyanAccent,
+                        selectedColor = AccentGreen,
                         unselectedColor = TextMuted
                     )
                 )
                 Column {
                     Text(
                         text = profile.name,
-                        style = Typography.titleLarge.copy(fontSize = 16.sp),
+                        style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
                         color = TextPrimary
                     )
                     Spacer(modifier = Modifier.height(2.dp))

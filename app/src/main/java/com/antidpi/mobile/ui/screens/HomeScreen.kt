@@ -9,17 +9,18 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.antidpi.mobile.core.ConnectionState
 import com.antidpi.mobile.data.DpiProfile
 import com.antidpi.mobile.data.NetworkStats
 import com.antidpi.mobile.ui.components.PowerButton
@@ -28,7 +29,7 @@ import com.antidpi.mobile.ui.theme.*
 
 @Composable
 fun HomeScreen(
-    isConnected: Boolean,
+    connectionState: ConnectionState,
     stats: NetworkStats,
     activeProfile: DpiProfile,
     gameAdBlockEnabled: Boolean,
@@ -37,6 +38,8 @@ fun HomeScreen(
     onToggleGameAdBlock: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val isConnected = connectionState == ConnectionState.CONNECTED
+    val isTransitioning = connectionState == ConnectionState.CONNECTING || connectionState == ConnectionState.DISCONNECTING
     val scrollState = rememberScrollState()
 
     Column(
@@ -44,108 +47,103 @@ fun HomeScreen(
             .fillMaxSize()
             .background(BgDark)
             .verticalScroll(scrollState)
-            .padding(horizontal = 20.dp, vertical = 16.dp),
+            .padding(horizontal = 20.dp, vertical = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Top Header
+        // Minimalist Top Bar
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Text(
+                text = "AntiDPI",
+                style = Typography.headlineMedium.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = (-0.5).sp
+                ),
+                color = TextPrimary
+            )
+
+            // Status Indicator Dot + Label
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .size(38.dp)
-                        .clip(CircleShape)
-                        .background(
-                            Brush.linearGradient(
-                                listOf(CyanAccent.copy(alpha = 0.2f), BrandPurple.copy(alpha = 0.2f))
-                            )
-                        )
-                        .border(1.dp, CyanAccent.copy(alpha = 0.4f), CircleShape)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Shield,
-                        contentDescription = null,
-                        tint = CyanAccent,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-                Column {
-                    Text(
-                        text = "AntiDPI Mobile",
-                        style = Typography.titleLarge.copy(fontSize = 19.sp, fontWeight = FontWeight.Bold),
-                        color = TextPrimary
-                    )
-                    Text(
-                        text = "GoodbyeDPI Çekirdeği",
-                        style = Typography.labelSmall,
-                        color = TextSecondary
-                    )
-                }
-            }
-
-            // Status Pill
-            Box(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
-                    .background(if (isConnected) GreenNeon.copy(alpha = 0.15f) else CardDark)
-                    .border(
-                        1.dp,
-                        if (isConnected) GreenNeon.copy(alpha = 0.4f) else CardBorder,
-                        RoundedCornerShape(20.dp)
-                    )
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .background(CardDark)
+                    .border(1.dp, CardBorder, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .clip(CircleShape)
-                            .background(if (isConnected) GreenNeon else TextMuted)
-                    )
-                    Text(
-                        text = if (isConnected) "KORUMALI" else "KAPALI",
-                        style = Typography.labelSmall.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = if (isConnected) GreenNeon else TextSecondary
+                Box(
+                    modifier = Modifier
+                        .size(6.dp)
+                        .clip(CircleShape)
+                        .background(
+                            when (connectionState) {
+                                ConnectionState.CONNECTED -> AccentGreen
+                                ConnectionState.CONNECTING, ConnectionState.DISCONNECTING -> AccentSlate
+                                ConnectionState.DISCONNECTED -> TextMuted
+                            }
                         )
+                )
+                Text(
+                    text = when (connectionState) {
+                        ConnectionState.CONNECTED -> "Bağlı"
+                        ConnectionState.CONNECTING -> "Bağlanıyor"
+                        ConnectionState.DISCONNECTING -> "Kesiliyor"
+                        ConnectionState.DISCONNECTED -> "Kapalı"
+                    },
+                    style = Typography.labelSmall.copy(
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = when (connectionState) {
+                            ConnectionState.CONNECTED -> AccentGreen
+                            ConnectionState.CONNECTING, ConnectionState.DISCONNECTING -> AccentSlate
+                            ConnectionState.DISCONNECTED -> TextSecondary
+                        }
                     )
-                }
+                )
             }
         }
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(36.dp))
 
-        // Center Power Button
+        // Center Minimalist Power Button
         PowerButton(
-            isConnected = isConnected,
+            connectionState = connectionState,
             onClick = onToggleClick
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
+        // Clean Status Typography
         Text(
-            text = if (isConnected) "DPI Koruması Etkin" else "Korumayı Başlatmak İçin Dokunun",
-            style = Typography.titleLarge.copy(fontSize = 17.sp),
-            color = if (isConnected) GreenNeon else TextSecondary
+            text = when (connectionState) {
+                ConnectionState.CONNECTED -> "DPI Koruması Etkin"
+                ConnectionState.CONNECTING -> "Bağlantı Kuruluyor..."
+                ConnectionState.DISCONNECTING -> "Bağlantı Kapatılıyor..."
+                ConnectionState.DISCONNECTED -> "Koruma Devre Dışı"
+            },
+            style = Typography.titleLarge.copy(fontSize = 17.sp, fontWeight = FontWeight.SemiBold),
+            color = if (isConnected) TextPrimary else TextSecondary
         )
 
+        Spacer(modifier = Modifier.height(4.dp))
+
         Text(
-            text = if (isConnected) "Uzak sunucu yok • Tam operatör hızı" else "Trafik doğrudan cihazınızda işlenir",
+            text = when (connectionState) {
+                ConnectionState.CONNECTED -> "Yerel bypass devrede • Sıfır hız kaybı"
+                ConnectionState.CONNECTING -> "Ağ soketi başlatılıyor"
+                ConnectionState.DISCONNECTING -> "Tünel kapatılıyor"
+                ConnectionState.DISCONNECTED -> "Başlatmak için dokunun"
+            },
             style = Typography.bodyMedium.copy(fontSize = 13.sp),
             color = TextMuted
         )
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         // Active Profile Card
         Box(
@@ -162,73 +160,43 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .size(42.dp)
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(CyanAccent.copy(alpha = 0.15f))
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Tune,
-                            contentDescription = null,
-                            tint = CyanAccent,
-                            modifier = Modifier.size(22.dp)
-                        )
-                    }
-                    Column {
-                        Text(
-                            text = "Aktif Operatör Profili",
-                            style = Typography.labelSmall,
-                            color = TextSecondary
-                        )
-                        Text(
-                            text = activeProfile.name,
-                            style = Typography.titleLarge.copy(fontSize = 15.sp),
-                            color = TextPrimary
-                        )
-                        Text(
-                            text = activeProfile.description,
-                            style = Typography.bodyMedium.copy(fontSize = 12.sp),
-                            color = TextMuted,
-                            maxLines = 1
-                        )
-                    }
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Profil",
+                        style = Typography.labelSmall,
+                        color = TextMuted
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = activeProfile.name,
+                        style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                        color = TextPrimary
+                    )
+                    Text(
+                        text = activeProfile.description,
+                        style = Typography.bodyMedium.copy(fontSize = 12.sp),
+                        color = TextSecondary,
+                        maxLines = 1
+                    )
                 }
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = "Profili Değiştir",
-                    tint = TextMuted
+                    tint = TextMuted,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(14.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        // Game AdBlocker Card
+        // Minimalist Game & Web AdBlocker Switch Card
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(
-                    Brush.horizontalGradient(
-                        if (gameAdBlockEnabled) {
-                            listOf(Color(0xFF0D2821), CardDark)
-                        } else {
-                            listOf(CardDark, CardDark)
-                        }
-                    )
-                )
-                .border(
-                    1.dp,
-                    if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.45f) else CardBorder,
-                    RoundedCornerShape(16.dp)
-                )
+                .background(CardDark)
+                .border(1.dp, CardBorder, RoundedCornerShape(16.dp))
                 .padding(16.dp)
         ) {
             Row(
@@ -236,123 +204,40 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .size(42.dp)
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.18f) else CyanAccent.copy(alpha = 0.1f))
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.SportsEsports,
-                            contentDescription = null,
-                            tint = if (gameAdBlockEnabled) GreenNeon else TextMuted,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                    Column {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            Text(
-                                text = "Oyun & Web Reklam Engelleyici",
-                                style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
-                                color = TextPrimary
-                            )
-                            if (gameAdBlockEnabled) {
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(GreenNeon.copy(alpha = 0.2f))
-                                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                                ) {
-                                    Text(
-                                        text = "AKTİF",
-                                        style = Typography.labelSmall.copy(
-                                            fontSize = 9.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            color = GreenNeon
-                                        )
-                                    )
-                                }
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(2.dp))
-                        Text(
-                            text = if (gameAdBlockEnabled) {
-                                "Oyun ve sitelerdeki video/banner reklamlar engelleniyor"
-                            } else {
-                                "Oyun ve web reklamlarını engellemek için dokunun"
-                            },
-                            style = Typography.bodyMedium.copy(fontSize = 12.sp),
-                            color = if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.85f) else TextMuted,
-                            maxLines = 1
-                        )
-                    }
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Reklam Engelleme",
+                        style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                        color = TextPrimary
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = if (gameAdBlockEnabled) "Oyun ve sitelerdeki reklamlar engelleniyor" else "DNS seviyesinde reklam filtresi",
+                        style = Typography.bodyMedium.copy(fontSize = 12.sp),
+                        color = if (gameAdBlockEnabled) AccentGreen else TextMuted
+                    )
                 }
 
                 Switch(
                     checked = gameAdBlockEnabled,
                     onCheckedChange = { onToggleGameAdBlock(it) },
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = GreenNeon,
-                        checkedTrackColor = GreenNeon.copy(alpha = 0.35f),
+                        checkedThumbColor = Color.White,
+                        checkedTrackColor = AccentGreen,
                         uncheckedThumbColor = TextMuted,
-                        uncheckedTrackColor = SurfaceDark
+                        uncheckedTrackColor = SurfaceDark,
+                        uncheckedBorderColor = CardBorder
                     )
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        // Stats Section
+        // Clean Stats Section
         StatsSection(
             stats = stats,
             isConnected = isConnected
         )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // Info Banner: Why zero speed reduction?
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp))
-                .background(SurfaceDark.copy(alpha = 0.6f))
-                .border(1.dp, CyanAccent.copy(alpha = 0.2f), RoundedCornerShape(16.dp))
-                .padding(14.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.Top
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Info,
-                    contentDescription = null,
-                    tint = CyanAccent,
-                    modifier = Modifier.size(20.dp)
-                )
-                Column {
-                    Text(
-                        text = "Nasıl Sıfır Hız Kaybı Sağlanıyor?",
-                        style = Typography.titleLarge.copy(fontSize = 13.sp, fontWeight = FontWeight.Bold),
-                        color = CyanAccent
-                    )
-                    Spacer(modifier = Modifier.height(3.dp))
-                    Text(
-                        text = "Geleneksel VPN'ler gibi trafiğinizi yurt dışındaki bir sunucuya göndermez. Sadece telefonunuzdaki paketleri parçalayarak operatörünüzün DPI sansür filtresini yanıltır ve orijinal hızınızda doğrudan bağlanır.",
-                        style = Typography.bodyMedium.copy(fontSize = 12.sp, lineHeight = 16.sp),
-                        color = TextSecondary
-                    )
-                }
-            }
-        }
     }
 }

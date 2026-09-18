@@ -10,16 +10,19 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = CyanAccent,
+    primary = TextPrimary,
     onPrimary = BgDark,
     primaryContainer = CardDark,
-    onPrimaryContainer = CyanAccent,
-    secondary = BrandPurple,
-    onSecondary = TextPrimary,
+    onPrimaryContainer = TextPrimary,
+    secondary = AccentGreen,
+    onSecondary = BgDark,
     background = BgDark,
     onBackground = TextPrimary,
     surface = SurfaceDark,
     onSurface = TextPrimary,
+    surfaceVariant = CardDark,
+    onSurfaceVariant = TextSecondary,
+    outline = CardBorder,
     error = RedAccent
 )
 

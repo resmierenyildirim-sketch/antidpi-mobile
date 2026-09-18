@@ -33,6 +33,8 @@ data class InstalledAppItem(
     val isSystem: Boolean
 )
 
+private var cachedAppsList: List<InstalledAppItem>? = null
+
 @Composable
 fun AppsScreen(
     prefs: PreferencesManager,
@@ -40,25 +42,28 @@ fun AppsScreen(
 ) {
     val context = LocalContext.current
     var searchQuery by remember { mutableStateOf("") }
-    var appsList by remember { mutableStateOf<List<InstalledAppItem>>(emptyList()) }
+    var appsList by remember { mutableStateOf<List<InstalledAppItem>>(cachedAppsList ?: emptyList()) }
     var excludedApps by remember { mutableStateOf(prefs.excludedApps) }
-    var isLoading by remember { mutableStateOf(true) }
+    var isLoading by remember { mutableStateOf(cachedAppsList == null) }
 
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            val pm = context.packageManager
-            val installed = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-            val filtered = installed.map { appInfo ->
-                InstalledAppItem(
-                    packageName = appInfo.packageName,
-                    appName = pm.getApplicationLabel(appInfo).toString(),
-                    isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-                )
-            }.sortedBy { it.appName.lowercase() }
+        if (cachedAppsList == null) {
+            withContext(Dispatchers.IO) {
+                val pm = context.packageManager
+                val installed = pm.getInstalledApplications(0)
+                val filtered = installed.map { appInfo ->
+                    InstalledAppItem(
+                        packageName = appInfo.packageName,
+                        appName = pm.getApplicationLabel(appInfo).toString(),
+                        isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+                    )
+                }.sortedBy { it.appName.lowercase() }
 
-            withContext(Dispatchers.Main) {
-                appsList = filtered
-                isLoading = false
+                cachedAppsList = filtered
+                withContext(Dispatchers.Main) {
+                    appsList = filtered
+                    isLoading = false
+                }
             }
         }
     }
@@ -78,16 +83,17 @@ fun AppsScreen(
         modifier = modifier
             .fillMaxSize()
             .background(BgDark)
-            .padding(horizontal = 20.dp, vertical = 16.dp)
+            .padding(horizontal = 20.dp, vertical = 20.dp)
     ) {
         Text(
-            text = "Uygulama Filtresi (Hariç Tutma)",
-            style = Typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+            text = "Uygulama Ayracı",
+            style = Typography.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp),
             color = TextPrimary
         )
+        Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "Bankacılık (Garanti, İşCep vb.) veya hassas uygulamaları DPI tünelinden hariç tutarak normal bağlantınız üzerinden çalıştırabilirsiniz.",
-            style = Typography.bodyMedium,
+            text = "Seçtiğiniz uygulamalar (banka, yerel servisler vb.) DPI tünelinden hariç tutulur.",
+            style = Typography.bodyMedium.copy(fontSize = 13.sp),
             color = TextSecondary
         )
 
@@ -97,12 +103,12 @@ fun AppsScreen(
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
-            placeholder = { Text("Uygulama veya paket ara...", color = TextMuted) },
-            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = TextMuted) },
+            placeholder = { Text("Uygulama veya paket ara...", color = TextMuted, fontSize = 14.sp) },
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = TextMuted, modifier = Modifier.size(20.dp)) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = CyanAccent,
+                focusedBorderColor = AccentSlate,
                 unfocusedBorderColor = CardBorder,
                 focusedContainerColor = CardDark,
                 unfocusedContainerColor = CardDark
@@ -114,7 +120,7 @@ fun AppsScreen(
 
         if (isLoading) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(color = CyanAccent)
+                CircularProgressIndicator(color = AccentGreen, strokeWidth = 2.5.dp)
             }
         } else {
             LazyColumn(
@@ -139,7 +145,7 @@ fun AppsScreen(
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
                                     text = app.appName,
-                                    style = Typography.titleLarge.copy(fontSize = 15.sp),
+                                    style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.Medium),
                                     color = TextPrimary,
                                     maxLines = 1
                                 )
@@ -164,8 +170,11 @@ fun AppsScreen(
                                     prefs.excludedApps = newSet
                                 },
                                 colors = SwitchDefaults.colors(
-                                    checkedThumbColor = RedAccent,
-                                    checkedTrackColor = RedAccent.copy(alpha = 0.4f)
+                                    checkedThumbColor = Color.White,
+                                    checkedTrackColor = RedAccent,
+                                    uncheckedThumbColor = TextMuted,
+                                    uncheckedTrackColor = SurfaceDark,
+                                    uncheckedBorderColor = CardBorder
                                 )
                             )
                         }

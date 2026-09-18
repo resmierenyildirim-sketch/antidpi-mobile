@@ -85,20 +85,20 @@ fun LogsScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column {
+                    Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Hızlı Erişim Testi (Discord / Web)",
-                            style = Typography.titleLarge.copy(fontSize = 14.sp),
+                            text = "Hızlı Erişim Testi",
+                            style = Typography.titleLarge.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
                             color = TextPrimary
                         )
                         Text(
-                            text = "DPI filtresinin aşılıp aşılmadığını test eder.",
+                            text = "discord.com:443 üzerinden DPI filtresi testi",
                             style = Typography.labelSmall,
                             color = TextSecondary
                         )
                     }
 
-                    Button(
+                    OutlinedButton(
                         onClick = {
                             isTesting = true
                             testResult = null
@@ -110,27 +110,26 @@ fun LogsScreen(
                                         socket.connect(InetSocketAddress("discord.com", 443), 4000)
                                         val elapsed = System.currentTimeMillis() - start
                                         socket.close()
-                                        "discord.com:443 erişimi BAŞARILI! ($elapsed ms)"
+                                        "Erişim Başarılı (${elapsed}ms)"
                                     } catch (e: Exception) {
                                         "Bağlantı hatası: ${e.message}"
                                     }
                                 }
                                 testResult = result
-                                DpiEngineManager.addLog("Test Sonucu: $result")
+                                DpiEngineManager.addLog("Erişim Testi: $result")
                                 isTesting = false
                             }
                         },
                         enabled = !isTesting,
-                        colors = ButtonDefaults.buttonColors(containerColor = CyanAccent, contentColor = BgDark),
-                        shape = RoundedCornerShape(10.dp),
-                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = TextPrimary),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, CardBorder),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
                     ) {
                         if (isTesting) {
-                            CircularProgressIndicator(modifier = Modifier.size(16.dp), color = BgDark, strokeWidth = 2.dp)
+                            CircularProgressIndicator(modifier = Modifier.size(14.dp), color = TextPrimary, strokeWidth = 2.dp)
                         } else {
-                            Icon(Icons.Default.PlayArrow, contentDescription = null, modifier = Modifier.size(16.dp))
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text("Test Et", style = Typography.labelSmall.copy(fontWeight = FontWeight.Bold))
+                            Text("Test Et", style = Typography.labelSmall.copy(fontWeight = FontWeight.Medium))
                         }
                     }
                 }
@@ -141,8 +140,7 @@ fun LogsScreen(
                         text = it,
                         style = Typography.bodyMedium.copy(
                             fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (it.contains("BAŞARILI")) GreenNeon else RedAccent
+                            color = if (it.contains("Başarılı")) AccentGreen else RedAccent
                         )
                     )
                 }
@@ -171,18 +169,18 @@ fun LogsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Oyun & Web Reklam Engelleme Testi",
-                            style = Typography.titleLarge.copy(fontSize = 14.sp),
+                            text = "Reklam Engelleme Testi",
+                            style = Typography.titleLarge.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
                             color = TextPrimary
                         )
                         Text(
-                            text = "Oyun (Unity, AppLovin) ve Web (AdSense, DoubleClick) sunucu engellerini test eder.",
+                            text = "Reklam ağları (Unity, AdSense, AppLovin) sorgusu",
                             style = Typography.labelSmall,
                             color = TextSecondary
                         )
                     }
 
-                    Button(
+                    OutlinedButton(
                         onClick = {
                             isAdBlockTesting = true
                             adBlockTestResult = null
@@ -195,48 +193,38 @@ fun LogsScreen(
                                         "ads.applovin.com"
                                     )
                                     var blockedCount = 0
-                                    val details = StringBuilder()
 
                                     for (domain in testDomains) {
                                         try {
                                             val addrs = java.net.InetAddress.getAllByName(domain)
                                             val isBlockedIp = addrs.any { it.hostAddress == "0.0.0.0" || it.hostAddress == "127.0.0.1" }
-                                            if (isBlockedIp) {
-                                                blockedCount++
-                                                details.append("$domain: Engellendi (0.0.0.0)\n")
-                                            } else {
-                                                details.append("$domain: Erişilebilir (${addrs.firstOrNull()?.hostAddress})\n")
-                                            }
+                                            if (isBlockedIp) blockedCount++
                                         } catch (e: Exception) {
                                             blockedCount++
-                                            details.append("$domain: Engellendi (Adres çözümlenemedi)\n")
                                         }
                                     }
 
                                     if (blockedCount == testDomains.size) {
-                                        "REKLAM ENGELİ BAŞARILI: $blockedCount/${testDomains.size} reklam ağı engellendi!\n" + details.toString().trimEnd()
-                                    } else if (blockedCount > 0) {
-                                        "KISMİ ENGELLEME: $blockedCount/${testDomains.size} reklam ağı engellendi.\n" + details.toString().trimEnd()
+                                        "Engelleme Başarılı ($blockedCount/${testDomains.size} reklam ağı blokeli)"
                                     } else {
-                                        "REKLAMLAR ENGELLENMEDİ: Reklam sunucuları erişilebilir durumda. (Oyun & Web Reklam Engelleyicinin açık olduğundan emin olun.)\n" + details.toString().trimEnd()
+                                        "Kısmi veya Engellenmedi ($blockedCount/${testDomains.size})"
                                     }
                                 }
                                 adBlockTestResult = result
-                                DpiEngineManager.addLog("AdBlock Test Sonucu:\n$result")
+                                DpiEngineManager.addLog("AdBlock Testi: $result")
                                 isAdBlockTesting = false
                             }
                         },
                         enabled = !isAdBlockTesting,
-                        colors = ButtonDefaults.buttonColors(containerColor = GreenNeon, contentColor = BgDark),
-                        shape = RoundedCornerShape(10.dp),
-                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = TextPrimary),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, CardBorder),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
                     ) {
                         if (isAdBlockTesting) {
-                            CircularProgressIndicator(modifier = Modifier.size(16.dp), color = BgDark, strokeWidth = 2.dp)
+                            CircularProgressIndicator(modifier = Modifier.size(14.dp), color = TextPrimary, strokeWidth = 2.dp)
                         } else {
-                            Icon(Icons.Default.PlayArrow, contentDescription = null, modifier = Modifier.size(16.dp))
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text("Test Et", style = Typography.labelSmall.copy(fontWeight = FontWeight.Bold))
+                            Text("Test Et", style = Typography.labelSmall.copy(fontWeight = FontWeight.Medium))
                         }
                     }
                 }
@@ -246,9 +234,8 @@ fun LogsScreen(
                     Text(
                         text = it,
                         style = Typography.bodyMedium.copy(
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = if (it.contains("BAŞARILI")) GreenNeon else if (it.contains("KISMİ")) CyanAccent else RedAccent
+                            fontSize = 12.sp,
+                            color = if (it.contains("Başarılı")) AccentGreen else RedAccent
                         )
                     )
                 }
@@ -262,7 +249,7 @@ fun LogsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color(0xFF070B14))
+                .background(SurfaceDark)
                 .border(1.dp, CardBorder, RoundedCornerShape(16.dp))
                 .padding(12.dp)
         ) {
@@ -276,9 +263,9 @@ fun LogsScreen(
                         fontFamily = FontFamily.Monospace,
                         fontSize = 11.sp,
                         color = when {
-                            log.contains("tüneli kuruldu") || log.contains("BAŞARILI") -> GreenNeon
+                            log.contains("aktif") || log.contains("Başarılı") -> AccentGreen
                             log.contains("hata") || log.contains("kapatıldı") -> RedAccent
-                            log.contains("DPI") || log.contains("manipüle") -> CyanAccent
+                            log.contains("DPI") -> AccentSlate
                             else -> TextSecondary
                         }
                     )

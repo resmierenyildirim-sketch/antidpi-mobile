@@ -16,12 +16,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.antidpi.mobile.AntiDpiApp
 import com.antidpi.mobile.core.AppUpdater
+import com.antidpi.mobile.core.ConnectionState
 import com.antidpi.mobile.core.DpiEngineManager
 import com.antidpi.mobile.core.DpiVpnService
 import com.antidpi.mobile.core.UpdateInfo
@@ -33,7 +36,7 @@ import kotlinx.coroutines.launch
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
     object Home : Screen("home", "Ana Sayfa", Icons.Default.Shield)
     object Profiles : Screen("profiles", "Profiller", Icons.Default.Tune)
-    object Dns : Screen("dns", "Şifreli DNS", Icons.Default.Dns)
+    object Dns : Screen("dns", "DNS", Icons.Default.Dns)
     object Apps : Screen("apps", "Uygulamalar", Icons.Default.Apps)
     object Logs : Screen("logs", "Günlük", Icons.Default.Terminal)
 }
@@ -59,7 +62,8 @@ class MainActivity : ComponentActivity() {
             AntiDpiTheme {
                 val navController = rememberNavController()
                 val coroutineScope = rememberCoroutineScope()
-                val isConnected by DpiEngineManager.isConnected.collectAsState()
+                val connectionState by DpiEngineManager.connectionState.collectAsState()
+                val isConnected = connectionState == ConnectionState.CONNECTED
                 val stats by DpiEngineManager.stats.collectAsState()
                 val logs by DpiEngineManager.logs.collectAsState()
                 var activeProfile by remember { mutableStateOf(prefs.getActiveProfile()) }
@@ -123,32 +127,35 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = {
                         val navBackStackEntry by navController.currentBackStackEntryAsState()
-                        val currentRoute = navBackStackEntry?.destination?.route
+                        val currentDestination = navBackStackEntry?.destination
 
                         NavigationBar(
-                            containerColor = CardDark,
-                            tonalElevation = 8.dp
+                            containerColor = SurfaceDark,
+                            tonalElevation = 0.dp
                         ) {
                             items.forEach { screen ->
+                                val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
                                 NavigationBarItem(
                                     icon = { Icon(screen.icon, contentDescription = screen.title) },
                                     label = { Text(screen.title, style = Typography.labelSmall) },
-                                    selected = currentRoute == screen.route,
+                                    selected = selected,
                                     onClick = {
-                                        if (currentRoute != screen.route) {
+                                        if (!selected) {
                                             navController.navigate(screen.route) {
-                                                popUpTo(Screen.Home.route) { saveState = true }
+                                                popUpTo(navController.graph.findStartDestination().id) {
+                                                    saveState = true
+                                                }
                                                 launchSingleTop = true
                                                 restoreState = true
                                             }
                                         }
                                     },
                                     colors = NavigationBarItemDefaults.colors(
-                                        selectedIconColor = CyanAccent,
-                                        selectedTextColor = CyanAccent,
+                                        selectedIconColor = TextPrimary,
+                                        selectedTextColor = TextPrimary,
                                         unselectedIconColor = TextMuted,
                                         unselectedTextColor = TextMuted,
-                                        indicatorColor = CyanAccent.copy(alpha = 0.15f)
+                                        indicatorColor = CardDark
                                     )
                                 )
                             }
@@ -162,7 +169,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Screen.Home.route) {
                             HomeScreen(
-                                isConnected = isConnected,
+                                connectionState = connectionState,
                                 stats = stats,
                                 activeProfile = activeProfile,
                                 gameAdBlockEnabled = gameAdBlockEnabled,
@@ -170,19 +177,19 @@ class MainActivity : ComponentActivity() {
                                     handleToggleVpn()
                                 },
                                 onNavigateToProfiles = {
-                                    navController.navigate(Screen.Profiles.route)
+                                    navController.navigate(Screen.Profiles.route) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
                                 },
                                 onToggleGameAdBlock = { enabled ->
                                     gameAdBlockEnabled = enabled
                                     prefs.gameAdBlockEnabled = enabled
                                     if (isConnected) {
-                                        Toast.makeText(
-                                            this@MainActivity,
-                                            if (enabled) "Oyun & Web Reklam Engelleyici açıldı. Uygulanıyor..." else "Oyun & Web Reklam Engelleyici kapatıldı. Uygulanıyor...",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        DpiVpnService.stop(this@MainActivity)
-                                        DpiVpnService.start(this@MainActivity)
+                                        DpiVpnService.reload(this@MainActivity)
                                     }
                                 }
                             )
@@ -194,13 +201,7 @@ class MainActivity : ComponentActivity() {
                                 onProfileSelected = { newProfile ->
                                     activeProfile = newProfile
                                     if (isConnected) {
-                                        Toast.makeText(
-                                            this@MainActivity,
-                                            "Profil güncellendi. Yeniden başlatılıyor...",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        DpiVpnService.stop(this@MainActivity)
-                                        DpiVpnService.start(this@MainActivity)
+                                        DpiVpnService.reload(this@MainActivity)
                                     }
                                 }
                             )
@@ -212,13 +213,7 @@ class MainActivity : ComponentActivity() {
                                 onSettingsChanged = {
                                     gameAdBlockEnabled = prefs.gameAdBlockEnabled
                                     if (isConnected) {
-                                        Toast.makeText(
-                                            this@MainActivity,
-                                            "DNS / Reklam ayarları güncellendi. Uygulanıyor...",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        DpiVpnService.stop(this@MainActivity)
-                                        DpiVpnService.start(this@MainActivity)
+                                        DpiVpnService.reload(this@MainActivity)
                                     }
                                 }
                             )
@@ -238,7 +233,11 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun handleToggleVpn() {
-        if (DpiEngineManager.isConnected.value) {
+        val state = DpiEngineManager.connectionState.value
+        if (state == ConnectionState.CONNECTING || state == ConnectionState.DISCONNECTING) {
+            return
+        }
+        if (state == ConnectionState.CONNECTED) {
             DpiVpnService.stop(this)
         } else {
             val vpnIntent = VpnService.prepare(this)

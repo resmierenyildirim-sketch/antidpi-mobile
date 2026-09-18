@@ -9,7 +9,17 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+enum class ConnectionState {
+    DISCONNECTED,
+    CONNECTING,
+    CONNECTED,
+    DISCONNECTING
+}
+
 object DpiEngineManager {
+
+    private val _connectionState = MutableStateFlow(ConnectionState.DISCONNECTED)
+    val connectionState: StateFlow<ConnectionState> = _connectionState.asStateFlow()
 
     private val _isConnected = MutableStateFlow(false)
     val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
@@ -17,16 +27,22 @@ object DpiEngineManager {
     private val _stats = MutableStateFlow(NetworkStats())
     val stats: StateFlow<NetworkStats> = _stats.asStateFlow()
 
-    private val _logs = MutableStateFlow<List<String>>(listOf("AntiDPI Mobile başlatıldı ve hazır."))
+    private val _logs = MutableStateFlow<List<String>>(listOf("AntiDPI Mobile hazır."))
     val logs: StateFlow<List<String>> = _logs.asStateFlow()
 
-    fun setConnected(connected: Boolean) {
-        _isConnected.value = connected
-        if (connected) {
-            addLog("Yerel DPI VPN tüneli kuruldu. Paketler manipüle ediliyor.")
-        } else {
-            addLog("Bağlantı kapatıldı.")
+    fun setConnectionState(state: ConnectionState) {
+        _connectionState.value = state
+        _isConnected.value = (state == ConnectionState.CONNECTED)
+        when (state) {
+            ConnectionState.CONNECTED -> addLog("DPI koruması aktif.")
+            ConnectionState.DISCONNECTED -> addLog("Bağlantı kapatıldı.")
+            ConnectionState.CONNECTING -> addLog("Bağlanıyor...")
+            ConnectionState.DISCONNECTING -> addLog("Bağlantı kesiliyor...")
         }
+    }
+
+    fun setConnected(connected: Boolean) {
+        setConnectionState(if (connected) ConnectionState.CONNECTED else ConnectionState.DISCONNECTED)
     }
 
     fun updateStats(newStats: NetworkStats) {
@@ -50,6 +66,9 @@ object DpiEngineManager {
     }
 
     fun toggle(context: Context) {
+        if (_connectionState.value == ConnectionState.CONNECTING || _connectionState.value == ConnectionState.DISCONNECTING) {
+            return
+        }
         if (_isConnected.value) {
             DpiVpnService.stop(context)
         } else {

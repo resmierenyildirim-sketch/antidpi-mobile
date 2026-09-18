@@ -39,19 +39,20 @@ fun DnsScreen(
         modifier = modifier
             .fillMaxSize()
             .background(BgDark)
-            .padding(horizontal = 20.dp, vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(horizontal = 20.dp, vertical = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         // --- 1. GAME & WEB AD BLOCKER SECTION ---
         item {
             Text(
-                text = "Oyun & Web Reklam Engelleyici",
-                style = Typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                text = "Reklam Engelleme (DNS)",
+                style = Typography.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp),
                 color = TextPrimary
             )
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = "Mobil oyunlardaki video/afişler ile web sitelerindeki pop-up ve banner reklamlarını DNS seviyesinde engeller.",
-                style = Typography.bodyMedium,
+                text = "Mobil oyunlardaki video/afiş reklamlarını ve web sitelerindeki izleyicileri DNS seviyesinde engeller.",
+                style = Typography.bodyMedium.copy(fontSize = 13.sp),
                 color = TextSecondary
             )
         }
@@ -62,22 +63,8 @@ fun DnsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
-                    .background(
-                        if (gameAdBlockEnabled) {
-                            Brush.horizontalGradient(
-                                listOf(Color(0xFF0D2821), CardDark)
-                            )
-                        } else {
-                            Brush.horizontalGradient(
-                                listOf(CardDark, CardDark)
-                            )
-                        }
-                    )
-                    .border(
-                        1.dp,
-                        if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.5f) else CardBorder,
-                        RoundedCornerShape(16.dp)
-                    )
+                    .background(CardDark)
+                    .border(1.dp, CardBorder, RoundedCornerShape(16.dp))
                     .padding(16.dp)
             ) {
                 Row(
@@ -85,37 +72,18 @@ fun DnsScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .size(42.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(if (gameAdBlockEnabled) GreenNeon.copy(alpha = 0.2f) else CyanAccent.copy(alpha = 0.1f))
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.SportsEsports,
-                                contentDescription = null,
-                                tint = if (gameAdBlockEnabled) GreenNeon else TextMuted,
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                        Column {
-                            Text(
-                                text = "Oyun & Web Reklam Engelleme",
-                                style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
-                                color = TextPrimary
-                            )
-                            Text(
-                                text = if (gameAdBlockEnabled) "Oyun ve sitelerdeki reklamlar engelleniyor" else "Reklam engelleme kapalı",
-                                style = Typography.labelSmall,
-                                color = if (gameAdBlockEnabled) GreenNeon else TextMuted
-                            )
-                        }
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Reklam Engelleyici",
+                            style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                            color = TextPrimary
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = if (gameAdBlockEnabled) "Reklam sunucuları filtreleniyor" else "Filtreleme kapalı",
+                            style = Typography.labelSmall,
+                            color = if (gameAdBlockEnabled) AccentGreen else TextMuted
+                        )
                     }
 
                     Switch(
@@ -126,8 +94,11 @@ fun DnsScreen(
                             onSettingsChanged()
                         },
                         colors = SwitchDefaults.colors(
-                            checkedThumbColor = GreenNeon,
-                            checkedTrackColor = GreenNeon.copy(alpha = 0.35f)
+                            checkedThumbColor = Color.White,
+                            checkedTrackColor = AccentGreen,
+                            uncheckedThumbColor = TextMuted,
+                            uncheckedTrackColor = SurfaceDark,
+                            uncheckedBorderColor = CardBorder
                         )
                     )
                 }
@@ -138,8 +109,8 @@ fun DnsScreen(
         if (gameAdBlockEnabled) {
             item {
                 Text(
-                    text = "Reklam Engelleme Sunucusu",
-                    style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                    text = "Reklam Engelleme Servisi",
+                    style = Typography.titleLarge.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
                     color = TextPrimary
                 )
             }
@@ -152,8 +123,8 @@ fun DnsScreen(
                         .clip(RoundedCornerShape(16.dp))
                         .background(CardDark)
                         .border(
-                            width = 1.5.dp,
-                            color = if (isSelected) GreenNeon else CardBorder,
+                            width = 1.dp,
+                            color = if (isSelected) AccentGreen else CardBorder,
                             shape = RoundedCornerShape(16.dp)
                         )
                         .clickable {
@@ -174,7 +145,7 @@ fun DnsScreen(
                                 prefs.gameAdBlockProvider = provider.name
                                 onSettingsChanged()
                             },
-                            colors = RadioButtonDefaults.colors(selectedColor = GreenNeon)
+                            colors = RadioButtonDefaults.colors(selectedColor = AccentGreen, unselectedColor = TextMuted)
                         )
                         Column {
                             Text(
@@ -190,7 +161,7 @@ fun DnsScreen(
                             )
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "DNS: ${provider.primaryIp}, ${provider.secondaryIp}",
+                                text = "IP: ${provider.primaryIp}, ${provider.secondaryIp}",
                                 style = Typography.labelSmall.copy(fontSize = 11.sp),
                                 color = TextMuted
                             )
@@ -201,21 +172,22 @@ fun DnsScreen(
         }
 
         item {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(6.dp))
         }
 
         // --- 2. STANDARD SECURE DNS (DoH) SECTION ---
         item {
             Text(
-                text = "Standart Güvenli DNS",
-                style = Typography.titleLarge.copy(fontSize = 17.sp, fontWeight = FontWeight.Bold),
+                text = "Standart Şifreli DNS",
+                style = Typography.titleLarge.copy(fontSize = 16.sp, fontWeight = FontWeight.Bold),
                 color = TextPrimary
             )
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = if (gameAdBlockEnabled) {
-                    "Not: Oyun Reklam Engelleyici açıkken yukarıdaki reklam engelleyici DNS kullanılır. Reklam engelleyici kapatılırsa aşağıdaki DNS devreye girer."
+                    "Not: Reklam engelleyici açıkken yukarıdaki DNS kullanılır."
                 } else {
-                    "Operatörlerin DNS zehirleme (uyarı sayfaları) girişimlerini engeller."
+                    "Operatörün varsayılan DNS sorgu kayıtlarını şifreler."
                 },
                 style = Typography.bodyMedium.copy(fontSize = 12.sp),
                 color = TextSecondary
@@ -237,36 +209,18 @@ fun DnsScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .size(40.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(CyanAccent.copy(alpha = 0.15f))
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Dns,
-                                contentDescription = null,
-                                tint = CyanAccent,
-                                modifier = Modifier.size(22.dp)
-                            )
-                        }
-                        Column {
-                            Text(
-                                text = "Şifreli DNS (DoH) Etkinleştir",
-                                style = Typography.titleLarge.copy(fontSize = 15.sp),
-                                color = TextPrimary
-                            )
-                            Text(
-                                text = if (dohEnabled) "Tüm DNS sorguları şifreleniyor" else "Operatörün varsayılan DNS'i aktif",
-                                style = Typography.labelSmall,
-                                color = if (dohEnabled) CyanAccent else TextMuted
-                            )
-                        }
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Şifreli DNS (DoH)",
+                            style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                            color = TextPrimary
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = if (dohEnabled) "Tüm DNS sorguları şifreleniyor" else "Operatör DNS'i devrede",
+                            style = Typography.labelSmall,
+                            color = if (dohEnabled) AccentSlate else TextMuted
+                        )
                     }
 
                     Switch(
@@ -276,7 +230,13 @@ fun DnsScreen(
                             prefs.dohEnabled = it
                             onSettingsChanged()
                         },
-                        colors = SwitchDefaults.colors(checkedThumbColor = CyanAccent)
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.White,
+                            checkedTrackColor = AccentGreen,
+                            uncheckedThumbColor = TextMuted,
+                            uncheckedTrackColor = SurfaceDark,
+                            uncheckedBorderColor = CardBorder
+                        )
                     )
                 }
             }
@@ -285,8 +245,8 @@ fun DnsScreen(
         if (dohEnabled && !gameAdBlockEnabled) {
             item {
                 Text(
-                    text = "Güvenli DNS Sağlayıcısı Seçin",
-                    style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                    text = "DNS Sağlayıcısı",
+                    style = Typography.titleLarge.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
                     color = TextPrimary
                 )
             }
@@ -299,8 +259,8 @@ fun DnsScreen(
                         .clip(RoundedCornerShape(16.dp))
                         .background(CardDark)
                         .border(
-                            width = 1.5.dp,
-                            color = if (isSelected) CyanAccent else CardBorder,
+                            width = 1.dp,
+                            color = if (isSelected) AccentGreen else CardBorder,
                             shape = RoundedCornerShape(16.dp)
                         )
                         .clickable {
@@ -321,12 +281,12 @@ fun DnsScreen(
                                 prefs.dohProvider = provider.name
                                 onSettingsChanged()
                             },
-                            colors = RadioButtonDefaults.colors(selectedColor = CyanAccent)
+                            colors = RadioButtonDefaults.colors(selectedColor = AccentGreen, unselectedColor = TextMuted)
                         )
                         Column {
                             Text(
                                 text = provider.name,
-                                style = Typography.titleLarge.copy(fontSize = 15.sp),
+                                style = Typography.titleLarge.copy(fontSize = 15.sp, fontWeight = FontWeight.Medium),
                                 color = TextPrimary
                             )
                             Text(
@@ -336,34 +296,6 @@ fun DnsScreen(
                             )
                         }
                     }
-                }
-            }
-        }
-
-        item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(SurfaceDark.copy(alpha = 0.6f))
-                    .border(1.dp, CardBorder, RoundedCornerShape(16.dp))
-                    .padding(14.dp)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalAlignment = Alignment.Top
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Info,
-                        contentDescription = null,
-                        tint = CyanAccent,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Text(
-                        text = "Oyun & Web reklam engelleme; mobil oyunlardaki video/afiş reklamlarını, web sitelerindeki pop-up ve banner'ları DNS seviyesinde bloke eder. YouTube video reklamları video ile aynı sunucudan aktığı için DNS ile engellenemez (ReVanced veya Brave önerilir).",
-                        style = Typography.bodyMedium.copy(fontSize = 12.sp, lineHeight = 16.sp),
-                        color = TextSecondary
-                    )
                 }
             }
         }

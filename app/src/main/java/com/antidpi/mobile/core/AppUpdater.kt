@@ -35,6 +35,7 @@ object AppUpdater {
         .build()
 
     suspend fun checkForUpdate(currentVersionName: String): UpdateInfo? = withContext(Dispatchers.IO) {
+        // 1. Try official GitHub Releases API
         try {
             val request = Request.Builder()
                 .url(RELEASES_API)
@@ -43,41 +44,67 @@ object AppUpdater {
                 .build()
 
             val response = client.newCall(request).execute()
-            if (!response.isSuccessful) {
-                Log.w(TAG, "GitHub API returned code ${response.code}")
-                return@withContext null
-            }
+            if (response.isSuccessful) {
+                val body = response.body?.string() ?: ""
+                val json = JSONObject(body)
 
-            val body = response.body?.string() ?: return@withContext null
-            val json = JSONObject(body)
+                val tagName = json.optString("tag_name", "").replace("v", "").trim()
+                val changelog = json.optString("body", "Yeni özellikler ve hata düzeltmeleri.")
 
-            val tagName = json.optString("tag_name", "").replace("v", "").trim()
-            val changelog = json.optString("body", "Yeni özellikler ve hata düzeltmeleri.")
-
-            val assets = json.optJSONArray("assets")
-            var downloadUrl = ""
-            if (assets != null) {
-                for (i in 0 until assets.length()) {
-                    val asset = assets.getJSONObject(i)
-                    val name = asset.optString("name", "")
-                    if (name.endsWith(".apk", ignoreCase = true)) {
-                        downloadUrl = asset.optString("browser_download_url", "")
-                        break
+                val assets = json.optJSONArray("assets")
+                var downloadUrl = ""
+                if (assets != null) {
+                    for (i in 0 until assets.length()) {
+                        val asset = assets.getJSONObject(i)
+                        val name = asset.optString("name", "")
+                        if (name.endsWith(".apk", ignoreCase = true)) {
+                            downloadUrl = asset.optString("browser_download_url", "")
+                            break
+                        }
                     }
                 }
-            }
 
-            val isNewer = isVersionNewer(tagName, currentVersionName)
-            return@withContext UpdateInfo(
-                hasUpdate = isNewer && downloadUrl.isNotEmpty(),
-                latestVersion = "v$tagName",
-                changelog = changelog,
-                downloadUrl = downloadUrl
-            )
+                val isNewer = isVersionNewer(tagName, currentVersionName)
+                if (isNewer && downloadUrl.isNotEmpty()) {
+                    return@withContext UpdateInfo(
+                        hasUpdate = true,
+                        latestVersion = "v$tagName",
+                        changelog = changelog,
+                        downloadUrl = downloadUrl
+                    )
+                }
+            } else {
+                Log.w(TAG, "GitHub API returned code ${response.code}, trying remote config fallback")
+            }
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to check update", e)
-            return@withContext null
+            Log.w(TAG, "GitHub Releases API query failed, trying remote config fallback", e)
         }
+
+        // 2. Fallback: Check profiles.json on raw.githubusercontent.com (No API rate limit)
+        try {
+            val fallbackRequest = Request.Builder().url(PROFILES_RAW_URL).build()
+            val fallbackResponse = client.newCall(fallbackRequest).execute()
+            if (fallbackResponse.isSuccessful) {
+                val fbBody = fallbackResponse.body?.string() ?: ""
+                val fbJson = JSONObject(fbBody)
+                val latestVer = fbJson.optString("latest_version", "").replace("v", "").trim()
+                val dlUrl = fbJson.optString("download_url", "")
+                val notes = fbJson.optString("changelog", "Yeni sürüm yayınlandı.")
+
+                if (latestVer.isNotEmpty() && dlUrl.isNotEmpty() && isVersionNewer(latestVer, currentVersionName)) {
+                    return@withContext UpdateInfo(
+                        hasUpdate = true,
+                        latestVersion = "v$latestVer",
+                        changelog = notes,
+                        downloadUrl = dlUrl
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Fallback update check also failed", e)
+        }
+
+        return@withContext null
     }
 
     suspend fun downloadAndInstall(

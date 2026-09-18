@@ -1,6 +1,7 @@
 package com.antidpi.mobile.core
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,8 @@ import com.antidpi.mobile.ui.MainActivity
 import io.github.dovecoteescapee.byedpi.core.ByeDpiProxy
 import io.github.dovecoteescapee.byedpi.core.TProxyService
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.io.File
 
 class DpiVpnService : VpnService() {
@@ -26,12 +29,17 @@ class DpiVpnService : VpnService() {
     private var vpnInterface: ParcelFileDescriptor? = null
     private var configFile: File? = null
 
-    private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
+    private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val vpnMutex = Mutex()
     private var statsJob: Job? = null
 
     private var lastBytesIn = 0L
     private var lastBytesOut = 0L
     private var connectionStartTime = 0L
+
+    private val notificationManager by lazy {
+        getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -42,21 +50,42 @@ class DpiVpnService : VpnService() {
         val action = intent?.action ?: ACTION_CONNECT
         when (action) {
             ACTION_CONNECT -> {
-                startVpn()
+                startForeground(NOTIFICATION_ID, buildNotification(getString(R.string.status_connecting)))
+                serviceScope.launch {
+                    vpnMutex.withLock {
+                        internalStartVpn()
+                    }
+                }
+            }
+            ACTION_RELOAD -> {
+                serviceScope.launch {
+                    vpnMutex.withLock {
+                        internalReloadVpn()
+                    }
+                }
             }
             ACTION_DISCONNECT -> {
-                stopVpn()
-                stopSelf()
+                serviceScope.launch {
+                    vpnMutex.withLock {
+                        internalStopVpn()
+                        withContext(Dispatchers.Main) {
+                            stopForeground(STOP_FOREGROUND_REMOVE)
+                            stopSelf()
+                        }
+                    }
+                }
             }
         }
         return START_NOT_STICKY
     }
 
-    private fun startVpn() {
-        if (DpiEngineManager.isConnected.value) {
+    private suspend fun internalStartVpn() {
+        if (DpiEngineManager.connectionState.value == ConnectionState.CONNECTED) {
             Log.i(TAG, "VPN is already running.")
             return
         }
+
+        DpiEngineManager.setConnectionState(ConnectionState.CONNECTING)
 
         try {
             val prefs = (application as AntiDpiApp).preferencesManager
@@ -68,7 +97,11 @@ class DpiVpnService : VpnService() {
             val socketFd = byeDpiProxy.createSocket(args)
             if (socketFd < 0) {
                 Log.e(TAG, "Failed to create ByeDPI socket")
-                DpiEngineManager.setConnected(false)
+                DpiEngineManager.setConnectionState(ConnectionState.DISCONNECTED)
+                withContext(Dispatchers.Main) {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
                 return
             }
 
@@ -77,8 +110,8 @@ class DpiVpnService : VpnService() {
                 Log.i(TAG, "ByeDpi proxy exited with code: $code")
             }
 
-            // Small delay to ensure proxy is listening
-            Thread.sleep(100)
+            // Non-blocking wait for proxy readiness
+            delay(100)
 
             // 2. Build Android TUN Interface
             val builder = Builder()
@@ -121,7 +154,11 @@ class DpiVpnService : VpnService() {
 
             if (vpnInterface == null) {
                 Log.e(TAG, "Failed to establish VPN interface (null fd)")
-                stopVpn()
+                internalStopVpn()
+                withContext(Dispatchers.Main) {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
                 return
             }
 
@@ -146,27 +183,78 @@ class DpiVpnService : VpnService() {
             TProxyService.TProxyStartService(tempFile.absolutePath, tunFd)
 
             connectionStartTime = System.currentTimeMillis()
-            DpiEngineManager.setConnected(true)
+            lastBytesIn = 0L
+            lastBytesOut = 0L
+
+            DpiEngineManager.setConnectionState(ConnectionState.CONNECTED)
 
             val notifText = if (prefs.gameAdBlockEnabled) {
-                "AntiDPI Aktif • Oyun & Web Reklam Engelleyici Açık"
+                "AntiDPI Aktif • Reklam Filtresi Açık"
             } else {
-                "AntiDPI Aktif - Sıfır Hız Kaybı"
+                "AntiDPI Aktif • Koruma Devrede"
             }
-            startForeground(NOTIFICATION_ID, buildNotification(notifText))
+            notificationManager.notify(NOTIFICATION_ID, buildNotification(notifText))
 
             startStatsPolling()
             val adBlockStatus = if (prefs.gameAdBlockEnabled) "Açık (${prefs.gameAdBlockProvider})" else "Kapalı"
-            Log.i(TAG, "DpiVpnService successfully started with ByeDPI & hev-socks5-tunnel! Profile: ${profile.name}, Oyun & Web AdBlock: $adBlockStatus")
-            DpiEngineManager.addLog("VPN tüneli kuruldu (${profile.name})")
-            if (prefs.gameAdBlockEnabled) {
-                DpiEngineManager.addLog("Oyun & Web Reklam Engelleyici devrede ($adBlockStatus)")
-            }
+            Log.i(TAG, "DpiVpnService started. Profile: ${profile.name}, AdBlock: $adBlockStatus")
 
         } catch (e: Exception) {
             Log.e(TAG, "Exception starting DpiVpnService", e)
-            stopVpn()
+            internalStopVpn()
+            withContext(Dispatchers.Main) {
+                stopForeground(STOP_FOREGROUND_REMOVE)
+                stopSelf()
+            }
         }
+    }
+
+    private suspend fun internalReloadVpn() {
+        DpiEngineManager.setConnectionState(ConnectionState.CONNECTING)
+        notificationManager.notify(NOTIFICATION_ID, buildNotification("AntiDPI Ayarları Güncelleniyor..."))
+        internalStopVpnResources()
+        internalStartVpn()
+    }
+
+    private fun internalStopVpnResources() {
+        statsJob?.cancel()
+        statsJob = null
+
+        try {
+            TProxyService.TProxyStopService()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error stopping TProxyService", e)
+        }
+
+        try {
+            byeDpiProxy.stopProxy()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error stopping ByeDPI proxy", e)
+        }
+
+        proxyJob?.cancel()
+        proxyJob = null
+
+        try {
+            configFile?.delete()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error deleting config file", e)
+        }
+        configFile = null
+
+        try {
+            vpnInterface?.close()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error closing vpnInterface", e)
+        }
+        vpnInterface = null
+    }
+
+    private fun internalStopVpn() {
+        internalStopVpnResources()
+        DpiEngineManager.setConnectionState(ConnectionState.DISCONNECTED)
+        DpiEngineManager.updateStats(NetworkStats())
+        Log.i(TAG, "DpiVpnService stopped.")
     }
 
     private fun startStatsPolling() {
@@ -208,46 +296,6 @@ class DpiVpnService : VpnService() {
         }
     }
 
-    private fun stopVpn() {
-        statsJob?.cancel()
-        statsJob = null
-
-        try {
-            TProxyService.TProxyStopService()
-        } catch (e: Exception) {
-            Log.w(TAG, "Error stopping TProxyService", e)
-        }
-
-        try {
-            byeDpiProxy.stopProxy()
-        } catch (e: Exception) {
-            Log.w(TAG, "Error stopping ByeDPI proxy", e)
-        }
-
-        proxyJob?.cancel()
-        proxyJob = null
-
-        try {
-            configFile?.delete()
-        } catch (e: Exception) {
-            Log.w(TAG, "Error deleting config file", e)
-        }
-        configFile = null
-
-        try {
-            vpnInterface?.close()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error closing vpnInterface", e)
-        }
-        vpnInterface = null
-
-        DpiEngineManager.setConnected(false)
-        DpiEngineManager.updateStats(NetworkStats())
-
-        stopForeground(STOP_FOREGROUND_REMOVE)
-        Log.i(TAG, "DpiVpnService stopped.")
-    }
-
     private fun buildNotification(contentText: String): Notification {
         val openAppIntent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -267,7 +315,7 @@ class DpiVpnService : VpnService() {
 
         return NotificationCompat.Builder(this, AntiDpiApp.VPN_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(getString(R.string.status_protected))
+            .setContentTitle(getString(R.string.app_name))
             .setContentText(contentText)
             .setOngoing(true)
             .setContentIntent(pendingOpenApp)
@@ -278,7 +326,8 @@ class DpiVpnService : VpnService() {
     }
 
     override fun onDestroy() {
-        stopVpn()
+        internalStopVpnResources()
+        DpiEngineManager.setConnectionState(ConnectionState.DISCONNECTED)
         serviceScope.cancel()
         super.onDestroy()
     }
@@ -287,11 +336,23 @@ class DpiVpnService : VpnService() {
         const val TAG = "AntiDPI-VpnService"
         const val ACTION_CONNECT = "com.antidpi.mobile.ACTION_CONNECT"
         const val ACTION_DISCONNECT = "com.antidpi.mobile.ACTION_DISCONNECT"
+        const val ACTION_RELOAD = "com.antidpi.mobile.ACTION_RELOAD"
         private const val NOTIFICATION_ID = 1001
 
         fun start(context: Context) {
             val intent = Intent(context, DpiVpnService::class.java).apply {
                 action = ACTION_CONNECT
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+        }
+
+        fun reload(context: Context) {
+            val intent = Intent(context, DpiVpnService::class.java).apply {
+                action = ACTION_RELOAD
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(intent)

@@ -3,6 +3,7 @@
     <string name="vpn_channel_name">AntiDPI Koruma Durumu</string>
     <string name="vpn_channel_desc">AntiDPI servisinin aktif durumunu ve ağ hızını gösterir.</string>
     <string name="status_protected">KORUMA AKTİF</string>
+    <string name="status_connecting">Bağlanıyor...</string>
     <string name="status_protected_desc">DPI filtreleri atlatılıyor. İnternet hızınız kısıtlanmaz.</string>
     <string name="status_disconnected">BAĞLANTI KESİLDİ</string>
     <string name="status_disconnected_desc">Koruma devre dışı. Sansürlü sitelere erişim engellenebilir.</string>

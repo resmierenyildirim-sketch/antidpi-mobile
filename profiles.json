@@ -1,6 +1,9 @@
 {
-  "version": 1,
-  "announcement": "AntiDPI Mobile aktif. Türk Telekom, Superonline, Turkcell ve Vodafone için optimize edilmiş DPI profilleri devrede.",
+  "version": 2,
+  "latest_version": "1.2.0",
+  "download_url": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.0/AntiDPI-Mobile.apk",
+  "changelog": "Sade ve minimalist yeni arayüz, menü geçiş sorunları ve bağlantı takılmaları giderildi.",
+  "announcement": "AntiDPI Mobile v1.2.0 devrede. Sade ve minimalist tasarım uygulandı.",
   "profiles": [
     {
       "id": "preset_standard",

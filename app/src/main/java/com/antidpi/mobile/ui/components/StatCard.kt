@@ -5,15 +5,15 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.antidpi.mobile.data.NetworkStats
@@ -25,108 +25,141 @@ fun StatsSection(
     isConnected: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        StatItem(
-            icon = Icons.Default.ArrowDownward,
-            iconTint = CyanAccent,
-            label = "İndirme Hızı",
-            value = if (isConnected) stats.formatDownloadSpeed() else "0 B/s",
-            subtext = "Toplam: ${stats.formatBytesIn()}",
-            modifier = Modifier.weight(1f)
-        )
-        StatItem(
-            icon = Icons.Default.ArrowUpward,
-            iconTint = GreenNeon,
-            label = "Yükleme Hızı",
-            value = if (isConnected) stats.formatUploadSpeed() else "0 B/s",
-            subtext = "Toplam: ${stats.formatBytesOut()}",
-            modifier = Modifier.weight(1f)
-        )
-    }
-
-    Spacer(modifier = Modifier.height(12.dp))
-
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        StatItem(
-            icon = Icons.Default.Security,
-            iconTint = BrandPurple,
-            label = "Atlatılan Paket",
-            value = if (isConnected) "${stats.packetsDesynced}" else "0",
-            subtext = "DPI Filtresi Kırıldı",
-            modifier = Modifier.weight(1f)
-        )
-        StatItem(
-            icon = Icons.Default.Timer,
-            iconTint = TextSecondary,
-            label = "Bağlantı Süresi",
-            value = if (isConnected) stats.formatDuration() else "00:00",
-            subtext = if (isConnected) "Aktif" else "Kapalı",
-            modifier = Modifier.weight(1f)
-        )
-    }
-}
-
-@Composable
-fun StatItem(
-    icon: ImageVector,
-    iconTint: Color,
-    label: String,
-    value: String,
-    subtext: String,
-    modifier: Modifier = Modifier
-) {
     Box(
         modifier = modifier
+            .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .background(CardDark)
             .border(1.dp, CardBorder, RoundedCornerShape(16.dp))
-            .padding(14.dp)
+            .padding(horizontal = 18.dp, vertical = 16.dp)
     ) {
-        Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
+            // Speed row
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(iconTint.copy(alpha = 0.15f))
-                ) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        tint = iconTint,
-                        modifier = Modifier.size(16.dp)
+                // Download
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowDownward,
+                            contentDescription = null,
+                            tint = if (isConnected) AccentGreen else TextMuted,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Text(
+                            text = "İndirme",
+                            style = Typography.labelSmall,
+                            color = TextMuted
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = if (isConnected) stats.formatDownloadSpeed() else "0 B/s",
+                        style = Typography.titleLarge.copy(fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
+                        color = TextPrimary
+                    )
+                    Text(
+                        text = "Toplam: ${if (isConnected) stats.formatBytesIn() else "0 B"}",
+                        style = Typography.labelSmall.copy(fontSize = 11.sp),
+                        color = TextMuted
                     )
                 }
-                Text(
-                    text = label,
-                    style = Typography.labelSmall,
-                    color = TextSecondary
+
+                Box(
+                    modifier = Modifier
+                        .height(36.dp)
+                        .width(1.dp)
+                        .background(CardBorder)
                 )
+
+                // Upload
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Text(
+                            text = "Yükleme",
+                            style = Typography.labelSmall,
+                            color = TextMuted
+                        )
+                        Icon(
+                            imageVector = Icons.Default.ArrowUpward,
+                            contentDescription = null,
+                            tint = if (isConnected) AccentGreen else TextMuted,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = if (isConnected) stats.formatUploadSpeed() else "0 B/s",
+                        style = Typography.titleLarge.copy(fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
+                        color = TextPrimary
+                    )
+                    Text(
+                        text = "Toplam: ${if (isConnected) stats.formatBytesOut() else "0 B"}",
+                        style = Typography.labelSmall.copy(fontSize = 11.sp),
+                        color = TextMuted
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = value,
-                style = Typography.titleLarge.copy(fontSize = 17.sp),
-                color = TextPrimary
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(CardBorderSubtle)
             )
 
-            Text(
-                text = subtext,
-                style = Typography.labelSmall.copy(fontSize = 10.sp),
-                color = TextMuted
-            )
+            // Duration and Packets row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = "Süre:",
+                        style = Typography.labelSmall,
+                        color = TextMuted
+                    )
+                    Text(
+                        text = if (isConnected) stats.formatDuration() else "--:--",
+                        style = Typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                        color = TextSecondary
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = "DPI Paketi:",
+                        style = Typography.labelSmall,
+                        color = TextMuted
+                    )
+                    Text(
+                        text = if (isConnected) "${stats.packetsDesynced}" else "0",
+                        style = Typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                        color = TextSecondary
+                    )
+                }
+            }
         }
     }
 }
