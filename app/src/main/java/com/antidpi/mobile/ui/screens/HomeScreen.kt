@@ -20,6 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import com.antidpi.mobile.R
 import com.antidpi.mobile.core.ConnectionState
 import com.antidpi.mobile.data.DpiProfile
 import com.antidpi.mobile.data.NetworkStats
@@ -50,21 +53,42 @@ fun HomeScreen(
             .padding(horizontal = 20.dp, vertical = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Minimalist Top Bar
+        // Minimalist Top Bar with App Logo
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = "AntiDPI",
-                style = Typography.headlineMedium.copy(
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = (-0.5).sp
-                ),
-                color = TextPrimary
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(34.dp)
+                        .clip(RoundedCornerShape(9.dp))
+                        .background(CardDark)
+                        .border(1.dp, CardBorder, RoundedCornerShape(9.dp))
+                        .padding(5.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_app_logo),
+                        contentDescription = "AntiDPI Logo",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+
+                Text(
+                    text = "AntiDPI",
+                    style = Typography.headlineMedium.copy(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = (-0.5).sp
+                    ),
+                    color = TextPrimary
+                )
+            }
 
             // Status Indicator Dot + Label
             Row(

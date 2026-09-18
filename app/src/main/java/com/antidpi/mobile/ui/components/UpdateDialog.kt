@@ -17,6 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import com.antidpi.mobile.R
 import com.antidpi.mobile.core.UpdateInfo
 import com.antidpi.mobile.ui.theme.*
 
@@ -33,25 +36,26 @@ fun UpdateDialog(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(20.dp))
                 .background(CardDark)
-                .border(1.dp, CyanAccent.copy(alpha = 0.5f), RoundedCornerShape(20.dp))
+                .border(1.dp, CardBorder, RoundedCornerShape(20.dp))
                 .padding(22.dp)
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Rocket Icon
+                // App Logo Badge
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .size(54.dp)
                         .clip(RoundedCornerShape(14.dp))
-                        .background(CyanAccent.copy(alpha = 0.15f))
+                        .background(SurfaceDark)
+                        .border(1.dp, CardBorder, RoundedCornerShape(14.dp))
+                        .padding(10.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.RocketLaunch,
-                        contentDescription = null,
-                        tint = CyanAccent,
-                        modifier = Modifier.size(28.dp)
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_app_logo),
+                        contentDescription = "AntiDPI Logo",
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
 
@@ -66,7 +70,7 @@ fun UpdateDialog(
                 Text(
                     text = updateInfo.latestVersion,
                     style = Typography.bodyMedium.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
-                    color = CyanAccent
+                    color = AccentGreen
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -78,6 +82,7 @@ fun UpdateDialog(
                         .heightIn(max = 140.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(SurfaceDark)
+                        .border(1.dp, CardBorderSubtle, RoundedCornerShape(12.dp))
                         .padding(12.dp)
                         .verticalScroll(rememberScrollState())
                 ) {
@@ -100,9 +105,9 @@ fun UpdateDialog(
                             progress = { downloadProgress },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(8.dp)
-                                .clip(RoundedCornerShape(4.dp)),
-                            color = CyanAccent,
+                                .height(6.dp)
+                                .clip(RoundedCornerShape(3.dp)),
+                            color = AccentGreen,
                             trackColor = SurfaceDark
                         )
                         Spacer(modifier = Modifier.height(6.dp))
@@ -130,7 +135,7 @@ fun UpdateDialog(
                             onClick = onConfirmUpdate,
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(10.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = CyanAccent, contentColor = BgDark)
+                            colors = ButtonDefaults.buttonColors(containerColor = AccentGreen, contentColor = BgDark)
                         ) {
                             Text("Güncelle", style = Typography.labelSmall.copy(fontWeight = FontWeight.Bold))
                         }

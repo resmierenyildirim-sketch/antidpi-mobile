@@ -1,9 +1,9 @@
 {
-  "version": 2,
-  "latest_version": "1.2.0",
-  "download_url": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.0/AntiDPI-Mobile.apk",
-  "changelog": "Sade ve minimalist yeni arayüz, menü geçiş sorunları ve bağlantı takılmaları giderildi.",
-  "announcement": "AntiDPI Mobile v1.2.0 devrede. Sade ve minimalist tasarım uygulandı.",
+  "version": 3,
+  "latest_version": "1.2.1",
+  "download_url": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.1/AntiDPI-Mobile.apk",
+  "changelog": "Uygulama logosu ve launcher ikonu minimalist tasarımla yenilendi, arayüz üst çubuğuna logo rozeti eklendi.",
+  "announcement": "AntiDPI Mobile v1.2.1 devrede. Minimalist logo ve ikon güncellemesi uygulandı.",
   "profiles": [
     {
       "id": "preset_standard",

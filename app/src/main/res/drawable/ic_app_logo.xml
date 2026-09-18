@@ -1,0 +1,21 @@
+﻿<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Minimalist Monoline Shield Contour -->
+    <path
+        android:pathData="M24,6 C31,6 39,9.5 39,9.5 C39,26 31.5,37 24,42 C16.5,37 9,26 9,9.5 C9,9.5 17,6 24,6 Z"
+        android:fillColor="#00000000"
+        android:strokeColor="#FAFAFA"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+
+    <!-- Sharp Minimalist Bypass Lightning Bolt -->
+    <path
+        android:pathData="M25.5,13 L17,24 L23,24 L20,35 L31,22 L25,22 Z"
+        android:fillColor="#10B981"/>
+
+</vector>
