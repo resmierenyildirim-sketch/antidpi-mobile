@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "latest_version": "1.2.2",
-  "download_url": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.2/AntiDPI-Mobile.apk",
-  "changelog": "DPI motoru optimize edildi: İlk bağlantı beklemesi ve donmalar kaldırıldı, MTU 1500 ve 64KB soket tamponu ile ultra hızlı ve akıcı bağlantı sağlandı.",
-  "announcement": "AntiDPI Mobile v1.2.2 devrede. Yüksek hızlı DPI motor optimizasyonu uygulandı.",
+  "latest_version": "1.2.3",
+  "download_url": "https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.3/AntiDPI-Mobile.apk",
+  "changelog": "Açılışta yaşanan çökme sorunu düzeltildi: Vektör kaynak kodlaması optimize edilerek açılış kararlılığı sağlandı.",
+  "announcement": "AntiDPI Mobile v1.2.3 devrede. Açılış çökme hatası düzeltildi.",
   "profiles": [
     {
       "id": "preset_standard",
