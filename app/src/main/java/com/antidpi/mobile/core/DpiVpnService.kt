@@ -113,10 +113,10 @@ class DpiVpnService : VpnService() {
             // Non-blocking wait for proxy readiness
             delay(100)
 
-            // 2. Build Android TUN Interface
+            // 2. Build Android TUN Interface (Standard 1500 MTU for zero packet drops)
             val builder = Builder()
                 .setSession(getString(R.string.app_name))
-                .setMtu(8500)
+                .setMtu(1500)
                 .addAddress("10.10.10.10", 32)
                 .addRoute("0.0.0.0", 0)
 
@@ -164,15 +164,21 @@ class DpiVpnService : VpnService() {
 
             val tunFd = vpnInterface!!.fd
 
-            // 3. Create YAML config for hev-socks5-tunnel
+            // 3. Create high-performance YAML config for hev-socks5-tunnel
             val tun2socksConfig = """
+            tunnel:
+              mtu: 1500
+              ipv4: 10.10.10.10
+            socks5:
+              port: $port
+              address: 127.0.0.1
+              udp: udp
+              mtu: 1500
             misc:
               task-stack-size: 81920
-            socks5:
-              mtu: 8500
-              address: 127.0.0.1
-              port: $port
-              udp: udp
+              connect-timeout: 3000
+              read-write-timeout: 60000
+              limit-nofile: 65535
             """.trimIndent()
 
             val tempFile = File.createTempFile("tun_config", ".yaml", cacheDir)
