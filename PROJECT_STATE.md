@@ -43,8 +43,8 @@ Bu dosya, **AntiDPI Mobile** projesinin mevcut mimarisini, teknik kararlarını,
 | :--- | :--- | :--- |
 | **GitHub Deposu** | [github.com/resmierenyildirim-sketch/antidpi-mobile](https://github.com/resmierenyildirim-sketch/antidpi-mobile) | Ana kod deposu |
 | **Web Sitesi (Landing Page)** | [resmierenyildirim-sketch.github.io/antidpi-mobile](https://resmierenyildirim-sketch.github.io/antidpi-mobile/) | GitHub Pages ile canlıda |
-| **Güncel Sürüm (Release)** | [v1.1.1 Release](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/tag/v1.1.1) | Resmi v1.1.1 sürümü |
-| **Doğrudan APK İndir** | [AntiDPI-Mobile.apk İndir](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.1.1/AntiDPI-Mobile.apk) | Güncel kurulabilir paket (~18.4 MB) |
+| **Güncel Sürüm (Release)** | [v1.2.0 Release](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/tag/v1.2.0) | Resmi v1.2.0 sürümü (Sade & Minimalist Tasarım, Bağlantı ve Menü Onarımları) |
+| **Doğrudan APK İndir** | [AntiDPI-Mobile.apk İndir](https://github.com/resmierenyildirim-sketch/antidpi-mobile/releases/download/v1.2.0/AntiDPI-Mobile.apk) | Güncel kurulabilir paket (~18.4 MB) |
 | **Yerel APK Dosyası** | `C:\Users\ereny\Documents\GoodByeDPI For Mobile\AntiDPI-Mobile.apk` | Bilgisayardaki derlenmiş dosya |
 | **Google Search Console Doğrulama** | `https://resmierenyildirim-sketch.github.io/antidpi-mobile/googlecb95e4c7f3e5f347.html` | Mülkiyet doğrulama dosyası canlıda |
 | **Site Haritası (Sitemap)** | `https://resmierenyildirim-sketch.github.io/antidpi-mobile/sitemap.xml` | Google bot taraması için |
